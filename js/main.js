@@ -93,10 +93,10 @@ $(document).ready(function () {
 					//playPas();
 					focusPlayer();
 				} else if (mov == 1) {
-				    console.log('Aïe.');
+				    printMessage('Aïe.', false);
 				} else {
 				    // mov est l'entitée attaquée
-				    console.log('BOOOOOOM !');
+				    printMessage('I KILLED YOU, BITHC !', true);
 					var other_player = mov;
 					entities = delTabElement(entities,other_player);
 
