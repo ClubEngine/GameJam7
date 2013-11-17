@@ -29,8 +29,17 @@ $(document).ready(function () {
 	insertActor(player1, entities, 9, 2);
 	player1.setNumberAction(20);
 
+	// player 2
+	var player2 = new Player();
+	insertActor(player2, entities, 1, 25);
+	insertActor(player2, entities, 5, 25);
+	player2.setNumberAction(20);
+
+	players[0]=player1;
+	players[1]=player2;
+
 	// acteur selectionne
-	var actor = player1.currentActor();
+	var actor = players[0].currentActor();
 
 
 	
@@ -79,13 +88,15 @@ $(document).ready(function () {
 				
 				
 				if (action.state == Action.CHANGE_PLAYER_L) {
-						actor=player1.previousActor();
+						actor=players[indexPlayer].previousActor();
 				    	focusPlayer();
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
-				    	actor=player1.nextActor();
+				    	actor=players[indexPlayer].nextActor();
 						focusPlayer();
 				} else if (action.state == Action.END_TURN) {
-					
+						indexPlayer = (indexPlayer + 1) % players.length;
+						players[indexPlayer].setNumberAction(20);	
+				    	actor=players[indexPlayer].currentActor();
 				}
 				
 				else {
@@ -116,7 +127,7 @@ $(document).ready(function () {
 			        		            var character = lab.entityOn(x, y, entities);
 			                		    if (!character) {
 			                		        alreadyAdd = true;
-			                		        insertActor(player1, entities, x, y);
+			                		        insertActor(players[indexPlayer], entities, x, y);
 			                		    }
 			        		        }
 			        		    }
@@ -127,8 +138,8 @@ $(document).ready(function () {
 			    		    } else {
 			    		        // Fuuuuuusion
 			    		        entities = delTabElement(entities, others[0]);
-			    		        player1.setActors(delTabElement(player1.actors(), others[0]));
-								player1.setCurrentActor(actor);
+			    		        players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
+								players[indexPlayer].setCurrentActor(actor);
 			    		        // TODO stats
 			    		    }
 			    		} else {
@@ -136,8 +147,8 @@ $(document).ready(function () {
 						var other_actor = mov;
 						entities = delTabElement(entities,other_actor);
 						actor.setNombreAction(0);
-						player1.setActors(delTabElement(player1.actors(), other_actor));
-						player1.setCurrentActor(actor);
+						players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), other_actor));
+						players[indexPlayer].setCurrentActor(actor);
 						}
 					}
 				}				
