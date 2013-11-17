@@ -80,9 +80,10 @@ $(document).ready(function () {
 					//playPas();
 					focusPlayer();
 				} else if (mov == 1) {
-				    console.log('BOOOOOOM !');
-				} else {
 				    console.log('Aïe.');
+				} else {
+				    // mov est l'entitée attaquée
+				    console.log('BOOOOOOM !');
 				}
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {

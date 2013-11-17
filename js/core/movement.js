@@ -67,14 +67,15 @@ function doMovement(actor, laby, action, entities)
 	}
 
 	// test if the new position is not an bstacle
+	var ret;
 	if (! laby.isObstacle(nextPos.x, nextPos.y))
 	{
-	    if (laby.entityOn(nextPos.x, nextPos.y, entities)) {
-	        return 1;
+	    if (ret = laby.entityOn(nextPos.x, nextPos.y, entities)) {
+	        return ret;
 	    } else {
 	        actor.setPosition(nextPos.x, nextPos.y);
 	        return 0;
 	    }
 	}
-	return 2;
+	return 1;
 }
