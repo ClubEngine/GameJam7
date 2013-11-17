@@ -25,14 +25,14 @@ $(document).ready(function () {
 
 	// player 1
 	var player1 = new Player();
-	insertActor(player1, entities, 1, 0, 300, 100);
-	insertActor(player1, entities, 9, 2, 500 , 200);
+	insertActor(player1, entities, 1, 0, 300, 100,1);
+	insertActor(player1, entities, 9, 2, 500 , 200,2);
 	player1.setNumberAction(20);
 
 	// player 2
 	var player2 = new Player();
-	insertActor(player2, entities, 1, 25, 300, 100);
-	insertActor(player2, entities, 5, 25, 500, 200);
+	insertActor(player2, entities, 1, 25, 300, 100,1);
+	insertActor(player2, entities, 5, 25, 500, 200,2);
 	player2.setNumberAction(20);
 
 	players[0]=player1;
@@ -129,7 +129,7 @@ $(document).ready(function () {
 								if ( other_actor.PV <=0) {
 								pos_new_mob = other_actor.pos ;
 								entities = delTabElement(entities,other_actor);
-								insertActor(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y)
+								insertActor(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y, 100,100,randomMunster())
 								}
 																	
 									
@@ -161,7 +161,7 @@ $(document).ready(function () {
 											var character = lab.entityOn(x, y, entities);
 											if (!character) {
 												alreadyAdd = true;
-												insertActor(players[indexPlayer], entities, x, y, actor.getPV()/2, actor.getAttack());
+												insertActor(players[indexPlayer], entities, x, y, actor.getPV()/2, actor.getAttack(), actor.getSpriteId());
 												actor.setPV(actor.getPV()/2);
 											}
 										}
@@ -402,25 +402,17 @@ function playRNo()
 
 
 // insert un actor dans le tableau avec sprite et tout le bordel
-function insertActor(player, entities, x, y, pv, attack) {
-	// variable static
-	if ( typeof insertActor.id == 'undefined' ) {
-		insertActor.id = 1;
-	}
+function insertActor(player, entities, x, y, pv, attack, type) {
 
 	actor = new Actor();
 	player.addActor(actor);
-	actor.setSpriteId(insertActor.id);
+	actor.setSpriteId(type);
 	actor.setPosition(x, y);
 	actor.setPV(pv);
 	actor.setAttack(attack);
 
 	entities.push(actor);
 
-	insertActor.id++;
-	if (insertActor.id > 2) {
-		insertActor.id = 1;
-	}
 }
 function createTable(x, y, entities) {
 	var table = new Actor(true,false);
@@ -430,5 +422,12 @@ function createTable(x, y, entities) {
 }
 
 
-
+function randomMunster() {
+	n=Math.floor(Math.random()*3+1)
+	if (n <= 2) {
+		return 1;
+	} else {
+		return 2;
+	}
+}
 

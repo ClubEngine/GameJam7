@@ -33,32 +33,29 @@ Player.prototype = {
 		}	
 		
 	},	
+	
 	// decale l'acteur et retourne l'acteur courant
 	nextActor: function() {
-		if (this.tabActor.length > 0) {
-			if (this.indexActor < this.tabActor.length -1) {
-				this.indexActor++;
-			}	
-			return this.tabActor[this.indexActor];	
-		}
-		return null;
+	   if (this.tabActor.length > 0) {
+		   this.indexActor=(this.indexActor+1)%this.tabActor.length;
+		   return this.tabActor[this.indexActor];	
+	   }
+	   return null;
 	},
-	
+
 	// decale l'acteur et retourne l'acteur courant
 	previousActor: function() {
 		if (this.tabActor.length > 0) {
-			if (this.indexActor > 0) {
-				this.indexActor--;
-			}	
+		   this.indexActor=(this.indexActor+1)%this.tabActor.length;
 			return this.tabActor[this.indexActor];	
 		}
 		return null;
 	},
 
-	setNumberAction: function(n) {
-		for (i=0; i<this.tabActor.length; i++) {
-			this.tabActor[i].setNombreAction(n);
-		}
-	}
+setNumberAction: function(n) {
+			 for (i=0; i<this.tabActor.length; i++) {
+				 this.tabActor[i].setNombreAction(n);
+			 }
+		 }
 
 }
