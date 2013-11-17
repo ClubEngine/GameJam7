@@ -19,11 +19,9 @@ $(document).ready(function () {
 	
 
 	var player1 = new Array
-	insertActor(player1);
-	insertActor(player1);
-	for (i=0; i<player1.length; i++) {
-		player1[i].setNombreAction(20);
-	}
+	insertActor(player1,1, 0);
+	insertActor(player1, 9, 2);
+	setNumberAction(player1, 20);
 	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
 	var player = player1[0];
 	var indexPlayer = 0;
@@ -78,33 +76,33 @@ $(document).ready(function () {
 				if (action.state == Action.CHANGE_PLAYER_L) {
 				    if (indexPlayer > 0){
 				    	player = player1[indexPlayer-1];
-						indexPlayer--;
+					indexPlayer--;
 				    	focusPlayer();
 					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
 				    if (indexPlayer < player1.length-1){
 				    	player = player1[indexPlayer+1];
-						indexPlayer++;
+					indexPlayer++;
 				    	focusPlayer();
 					}
 				}
 				
-				var mov = doMovement(player, lab, action.state, entities);
-				if (mov == 0) {
-					//playPas();
-					focusPlayer();
-				} else if (mov == 1) {
-				    printMessage('Aïe.', false);
-				} else {
-				    // mov est l'entitée attaquée
-				    printMessage('I KILLED YOU, BITCH !', true);
-					var other_player = mov;
-					entities = delTabElement(entities,other_player);
+				else {
+					var mov = doMovement(player, lab, action.state, entities);
+					if (mov == 0) {
+						//playPas();
+						focusPlayer();
+					} else if (mov == 1) {
+				    	printMessage('Aïe.', false);
+					} else {
+				    		// mov est l'entitée attaquée
+				    		printMessage('I KILLED YOU, BITCH !', true);
+						var other_player = mov;
+						entities = delTabElement(entities,other_player);
+						player.setNumberAction(0);
+					}
+				}				
 
-					
-
-				}
-				
 				player.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
@@ -283,10 +281,17 @@ function playRNo()
 
 
 // insert un actor dans le tableau avec sprite et tout le bordel
-function insertActor(tabPlayer) {
+function insertActor(tabPlayer, x, y) {
+	// variable static
+	if ( typeof insertActor.id == 'undefined' ) {
+        insertActor.id = 1;
+    }
+
 	tabPlayer[tabPlayer.length] = new Actor();
-	tabPlayer[tabPlayer.length-1].setSpriteId(1);
-	 tabPlayer[tabPlayer.length-1].setPosition(1, 0);
+	tabPlayer[tabPlayer.length-1].setSpriteId(insertActor.id);
+	tabPlayer[tabPlayer.length-1].setPosition(x, y);
+
+	insertActor.id++;
 }
 
 // set le nombre de coup de tous les actor d'un tableau
