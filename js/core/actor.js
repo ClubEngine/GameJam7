@@ -5,6 +5,7 @@ var Actor = function () {
 	this.pos = new Vector(0,0);
 	this.spriteId = 0;
 	this.dir = Action.UP;
+	this.nombreAction = 0;
 }
 
 Actor.prototype = {
@@ -15,6 +16,7 @@ Actor.prototype = {
 	setPosition: function (x,y) {
 		this.pos.x = x;
 		this.pos.y = y;
+		--this.nombreAction;
 	},
 	
 	getDirection: function (dir) {
@@ -31,5 +33,13 @@ Actor.prototype = {
 	
 	setSpriteId: function(id) {
 		this.spriteId = id;
+	},
+
+	setNombreAction: function (n) {
+		this.nombreAction = n;
+	},
+
+	getNombreAction: function (n) {
+		return nombreAction;
 	}
 }
