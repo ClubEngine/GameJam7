@@ -67,6 +67,13 @@ function initKdConf(action) {
 		action.state  = Action.FIRE_L;
 	});
 	
+	kd.E.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.E.down(function() {
+		action.state  = Action.END_TURN;
+	});
 	
 	
 	

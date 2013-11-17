@@ -17,22 +17,21 @@ $(document).ready(function () {
 	var action = {};
 	action.state = Action.IDLE;
 	
-
-	var player1 = new Array
-	insertActor(player1,1, 0);
-	insertActor(player1, 9, 2);
-	setNumberAction(player1, 20);
-	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
-	var player = player1[0];
+	var entities = new Array();
+	
+	// tableau de joueur
+	var players = new Array;
 	var indexPlayer = 0;
 
-	var entities = new Array();
-	for (var i in player1) {
-	    entities.push(player1[i]);
-	}
-	/*for (var i in player2) {
-	    entities.push(player2[i]);
-	}*/
+	// player 1
+	var player1 = new Player();
+	insertActor(player1, entities, 1, 0);
+	insertActor(player1, entities, 9, 2);
+	player1.setNumberAction(20);
+
+	// acteur selectionne
+	var actor = player1.currentActor();
+
 
 	
 	createTable(2 , 8, entities);
@@ -60,7 +59,7 @@ $(document).ready(function () {
 	var graphics = new Graphics(startGame);
 	
 	function focusPlayer() {
-	    window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
+	    window.scrollTo((actor.getPosition().x-5)*32, (actor.getPosition().y-5)*32);
 	}
 
 	function startGame () {
@@ -70,31 +69,27 @@ $(document).ready(function () {
 		initKdConf(action);	
 		kd.run(function () {
 			kd.tick();
+			actor.printCarac();
 			focusPlayer();
-			player.printCarac();
 
-		// prevent player to move super quickly	
+		// prevent  actor to move super quickly	
 		if (action.state != Action.IDLE) {
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
 				
 				if (action.state == Action.CHANGE_PLAYER_L) {
-				    if (indexPlayer > 0){
-				    	player = player1[indexPlayer-1];
-					indexPlayer--;
+						actor=player1.previousActor();
 				    	focusPlayer();
-					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
-				    if (indexPlayer < player1.length-1){
-				    	player = player1[indexPlayer+1];
-					indexPlayer++;
-				    	focusPlayer();
-					}
+				    	actor=player1.nextActor();
+						focusPlayer();
+				} else if (action.state == Action.END_TURN) {
+					
 				}
 				
 				else {
-					var mov = doMovement(player, lab, action.state, entities);
+					var mov = doMovement(actor, lab, action.state, entities);
 					if (mov == 0) {
 						//playPas();
 						focusPlayer();
@@ -108,7 +103,7 @@ $(document).ready(function () {
 			        		    printMessage('Glou glou glou.', true);
 			        		    var others = [];
 			        		    var addEntityToOther = function (x, y) {
-			        		        var character = lab.entityOn(x, y, entities, player);
+			        		        var character = lab.entityOn(x, y, entities, actor);
 			            		    if (character) {others.push(character)}
 			        		    }
 			        		    addEntityToOther(mov.pos.x-1, mov.pos.y);
@@ -123,8 +118,7 @@ $(document).ready(function () {
 			            		            var character = lab.entityOn(x, y, entities);
 			                    		    if (!character) {
 			                    		        alreadyAdd = true;
-			                    		        insertActor(player1, x, y);
-			                    		        entities.push(player1[player1.length-1]);
+			                    		        insertActor(player1, entities, x, y);
 			                    		    }
 			            		        }
 			            		    }
@@ -135,25 +129,27 @@ $(document).ready(function () {
 			        		    } else {
 			        		        // Fuuuuuusion
 			        		        entities = delTabElement(entities, others[0]);
-			        		        player1 = delTabElement(player1, others[0]);
+			        		        player1.setActors(delTabElement(player1.actors(), others[0]));
+								    player1.setCurrentActor(actor);
 			        		        // TODO stats
 			        		    }
 			        		} else {
 				        		printMessage('I KILLED YOU, BITCH !', true);
-						        var other_player = mov;
-						        entities = delTabElement(entities,other_player);
-						        player1 = delTabElement(player1,other_player);
-						        
+						    var other_actor = mov;
+						    entities = delTabElement(entities,other_actor);
+						    actor.setNombreAction(0);
+						    player1.setActors(delTabElement(player1.actors(), other_actor));
+						    player1.setCurrentActor(actor);
 						    }
 						}
 					}
 				}				
 
-				player.printCarac();
+				actor.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
-					ball.setPosition(player.getPosition().x, player.getPosition().y);
+					ball.setPosition(actor.getPosition().x, actor.getPosition().y);
 					ball.setSpriteId(SpriteCode.FIRE_BALL);
 					ball.setDirection(action.state);
 					entities.push(ball);
@@ -224,7 +220,7 @@ $(document).ready(function () {
 			}
 		}*/		
 
-		graphics.refreshAll(entities,player);
+		graphics.refreshAll(entities,actor);
 		});	
 	}
 });
@@ -327,16 +323,19 @@ function playRNo()
 
 
 // insert un actor dans le tableau avec sprite et tout le bordel
-function insertActor(tabPlayer, x, y) {
+function insertActor(player, entities, x, y) {
 	// variable static
 	if ( typeof insertActor.id == 'undefined' ) {
         insertActor.id = 1;
     }
 
-	tabPlayer[tabPlayer.length] = new Actor();
-	tabPlayer[tabPlayer.length-1].setSpriteId(insertActor.id);
-	tabPlayer[tabPlayer.length-1].setPosition(x, y);
+	actor = new Actor();
+	player.addActor(actor);
+	actor.setSpriteId(insertActor.id);
+	actor.setPosition(x, y);
 
+	entities.push(actor);
+	
 	insertActor.id++;
 	if (insertActor.id > 2) {
 	    insertActor.id = 1;
@@ -352,9 +351,3 @@ function createTable(x, y, entities) {
 	
 
 
-// set le nombre de coup de tous les actor d'un tableau
-function setNumberAction(tabPlayer, n) {
-	for (i=0; i<tabPlayer.length; i++) {
-		tabPlayer[i].setNombreAction(n);
-	}
-}
