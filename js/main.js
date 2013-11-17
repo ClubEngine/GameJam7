@@ -143,7 +143,7 @@ $(document).ready(function () {
 									
 								
 
-							if (mov.table) {
+							else if (mov.table) {
 								printMessage('Glou glou glou.', true);
 								var others = [];
 								var addEntityToOther = function (x, y) {
