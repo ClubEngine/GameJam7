@@ -1,0 +1,91 @@
+
+<!doctype html>
+<html lang="fr">
+    <head>
+
+        <meta charset="utf-8">
+
+        <script src="js/core/case.js"></script>
+        <script src="js/core/labyrinth.js"></script>
+        <script src="js/core/labyrinthFactory.js"></script>
+        <script src="js/core/actor.js"></script>
+        <script src="js/core/vector.js"></script>
+        <script src="js/core/action.js"></script>
+        
+        <script src="js/core/movement.js"></script>
+	<script src="js/kdconf.js"></script>
+	<script src="libs/keydrown.min.js"></script>
+	<script src="js/core/sprite.js"></script>
+	<script src="js/graphics.js"></script>
+	
+        <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+        <title>Patate - GameJam 6</title>
+
+    </head>
+
+ 	   <body>
+	<canvas id="map" width="800" height="600">
+		Mets à jour ton navigateur connard !
+	</canvas>
+    </body>
+
+	<p id="test">10
+	5
+	2111111111
+	1111111111
+	2111211111
+	1111111111
+	1111111111
+	1111111111
+	</p>	
+
+	<script>
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+		function p(x) { console.log(x); }
+		function nl(x) {  p(""); }
+	
+		var lab=labyrinthFactory("test");	
+		//displayLab(lab);
+
+// ***************************************************************************
+
+	var player = new Actor();
+	player.setSpriteId(1);
+	var push_date=Date.now();
+	var action = function() { this.state = Action.IDLE; };
+	
+	var entities = new Array();
+	entities[0] = player;
+
+	initKdConf(action);	
+
+	var graphics = new Graphics();
+	graphics.setLabyrinth(lab);
+
+	kd.run(function () {
+		kd.tick();
+		
+		// prevent player to move super quickly	
+		if (action.state != Action.IDLE) {	
+			if (Date.now() > push_date + 150) {
+				push_date = Date.now();
+				
+				doMovement(player, lab, action.state);
+			}
+		}
+
+		graphics.refreshAll(entities);
+	});	
+
+	</script>
+</html>

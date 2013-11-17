@@ -1,71 +1,84 @@
+
 <!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8">
+    <head>
 
-		<script src="libs/jquery.min.js"></script>
-		<script src="libs/keydrown.min.js"></script>
-		<script src="libs/soundjs.min.js"></script>
-		<script src="socket.io/socket.io.js"></script>
+        <meta charset="utf-8">
 
-		<script src="js/tools.js"></script>
+        <script src="js/tools.js"></script>
+        <script src="js/core/case.js"></script>
+        <script src="js/core/labyrinth.js"></script>
+        <script src="js/core/labyrinthFactory.js"></script>
+        <script src="js/core/movement.js"></script>
+        <script src="js/core/actor.js"></script>
+        <script src="js/core/vector.js"></script>
+        <script src="js/core/action.js"></script>
+        <script src="js/core/sprite.js"></script>
 
-		<script src="js/core/Case.js"></script>
-		<script src="js/core/Labyrinth.js"></script>
-		<script src="js/core/LabyrinthFactory.js"></script>
-		<script src="js/core/Movement.js"></script>
-		<script src="js/core/Actor.js"></script>
-		<script src="js/core/Vector.js"></script>
-		<script src="js/core/Action.js"></script>
-		<script src="js/core/Sprite.js"></script>
+        <script src="libs/jquery.min.js"></script>
+        <script src="libs/keydrown.min.js"></script>
+        <script src="js/kdconf.js"></script>
+        <!--script src="http://localhost:8080/socket.io/socket.io.js"></script-->
 
-		<script src="js/kdconf.js"></script>
-		<script src="js/graphics.js"></script>
-		<script src="js/SoundManager.js"></script>
-		<script src="js/Labyrintic.js"></script>
-		<script src="js/gui/MainMenu.js"></script>
-		<script src="js/main.js"></script>
+        <!--script src="js/network.js"></script-->
 
-		<script src="js/Network.js"></script>
+        <script src="libs/soundjs.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="css/reset.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="js/graphics.js"></script>
+        <script src="js/soundManager.js"></script>
+        <script src="js/main.js"></script>
 
-		<title>Labyrintic - Club Engine - GameJam #6</title>
-	</head>
+        <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
 
-	<body>
+        <title>Labyrintic - GameJam 6</title>
+	
+	
+    </head>
 
-		<section id="main-menu">
-			<header>
-				<h1>Labyrintic</h1>
-			</header>
+    <body>
+	<canvas id="map" width="736" height="1024">
+		Mets à jour ton navigateur connard !
+	</canvas>
+	<canvas id="playersMap" width="736" height="1024">
+		Mets à jour ton navigateur connard !
+	</canvas>
 
-			<menu id="map-menu">
-				<li data-map="mapTropBien.txt">Map Trop Bien</li>
-				<li data-map="smallArena.txt">Small Arena</li>
-				<li data-map="bigArena.txt">Big Arena</li>
-			</menu>
-
-			<menu id="player-menu">
-				<li data-pid="0">Jean Paul</li>
-				<li data-pid="1">Jean Pierre</li>
-				<li data-pid="2">Jean Pale</li>
-				<li data-pid="3">Jean Jean</li>
-			</menu>
-
-			<button id="start-game">Start Game</button>
-
-			<footer>Club Engine - 2013 - GameJam #6</footer>
-		</section>
-
-		<section id="game">
-			<canvas id="map" width="736" height="1024">
-				Mets à jour ton navigateur gentil utilisateur !
-			</canvas>
-			<canvas id="playersMap" width="736" height="1024">
-				Mets à jour ton navigateur gentil utilisateur !
-			</canvas>
-		</section>
-	</body>
+		
+	<p style="display:none;" id="test">23
+        32
+	21222222222222222222222
+	21211211221211211111112
+	21211211111211212221212
+	21212222121121111121212
+	21211211121112121121212
+	21211112121121121211212
+	21222222122111211112112
+	21111111111212111221112
+	21112222221221121111212
+	21212111211111111222212
+	21212121221222222121222
+	21212123233333332121112
+	21212123333333332122222
+	21222123323333332111112
+	21211123333323332222212
+	21121123333333332111112
+	21112122221222222122222
+	21112111121211121111112
+	21111122221222122222212
+	21222111111111111211112
+	21111122221222221112112
+	21222111121211121221212
+	21112122121212121211112
+	21212121111212222222212
+	21212121221211111211212
+	21212121121211111221212
+	21222122221211111211112
+	21111111111212222211212
+	23333333333333333333212
+	22222222223333332222222
+	22333333333332222222222
+	22222222333333333332222
+        </p>
+   </body>
 </html>

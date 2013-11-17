@@ -1,70 +1,9 @@
 body, html {
-	font-family: Calibri, Arial;
-	overflow: hidden;
+	overflow:hidden;
 }
 
-#game {
-	width: 736px;
-	height: 1024px;
-}
-#game canvas {
+canvas {
 	position: absolute;
-	width: 736px;
-	height: 1024px;
 	top: 0px;
 	bottom: 0px;
-}
-
-#main-menu {
-	width: 500px;
-	margin: 20px auto;
-	padding: 20px;
-	background: #EEE;
-}
-#main-menu header {
-	font-size: 2em;
-	letter-spacing: 2px;
-}
-#main-menu footer {
-	clear: both;
-}
-#main-menu menu {
-	float: left;
-	width: 230px;
-	margin: 10px;
-	padding: 0px;
-	background: #DDD;
-	list-style-type: none;
-}
-#main-menu menu li {
-	cursor: pointer;
-	padding: 5px 10px;
-}
-#main-menu menu li.active,
-#main-menu menu li.connected {
-	color: #0088CC;
-	background: #FFF;
-	font-size: 1.1em;
-}
-#main-menu menu li.connected {
-	color: #F70;
-}
-#main-menu menu li:hover {
-	background: #FFF;
-}
-#main-menu #start-game {
-	display: none;
-	clear: both;
-	width: 480px;
-	margin: 20px 10px;
-	padding: 10px;
-	border: 0px;
-	border-radius: 5px;
-}
-#main-menu #start-game:enabled {
-	display: block;
-}
-#main-menu #start-game:hover:enabled {
-	cursor: pointer;
-	background: #FFF;
 }
