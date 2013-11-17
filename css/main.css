@@ -7,3 +7,38 @@ canvas {
 	top: 0px;
 	bottom: 0px;
 }
+
+#carac, #message {
+    position: fixed;
+    margin: 5px;
+    width: 200px;
+    padding: 5px;
+    background-color: rgba(255,255,255, 0.75);
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+#carac {
+    border: 3px solid black;
+    top: -100px;
+    right: 0px;
+}
+#carac.up {
+    top: 0px;
+}
+#message {
+    bottom: -100px;
+    right: 0px;
+    border: 3px solid black;
+}
+#message.up {
+    bottom: 0px;
+}
+#message.good {
+    border: 3px solid green;
+}
+#message.bad {
+    border: 3px solid red;
+}
