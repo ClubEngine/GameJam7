@@ -167,8 +167,7 @@ Graphics.prototype = {
 		} else if (spriteId == SpriteCode.FIRE_BALL) {
 		    screen.drawFire(32*pos.x, 32*pos.y);
 		} else if (spriteId == SpriteCode.TABLE) {
-			console.log("julien gros caca")
-		    screen.drawTable(32*pos.x,32*pos.y)
+		    screen.drawTable(32*pos.x,32*pos.y);
 		}
 			
 		

@@ -70,6 +70,7 @@ $(document).ready(function () {
 		initKdConf(action);	
 		kd.run(function () {
 			kd.tick();
+			focusPlayer();
 			player.printCarac();
 
 		// prevent player to move super quickly	
@@ -101,10 +102,47 @@ $(document).ready(function () {
 				    	printMessage('Aïe.', false);
 					} else {
 				    		// mov est l'entitée attaquée
+			    		if (mov.table) {
+			    		    printMessage('Glou glou glou.', true);
+			    		    var others = [];
+			    		    var addEntityToOther = function (x, y) {
+			    		        var character = lab.entityOn(x, y, entities, player);
+			        		    if (character) {others.push(character)}
+			    		    }
+			    		    addEntityToOther(mov.pos.x-1, mov.pos.y);
+			    		    addEntityToOther(mov.pos.x, mov.pos.y-1);
+			    		    addEntityToOther(mov.pos.x+1, mov.pos.y);
+			    		    addEntityToOther(mov.pos.x, mov.pos.y+1);
+			    		    if (others.length == 0) {
+			    		        // Dédoublement
+			        		    var alreadyAdd = false;
+			        		    var execIfIsEmpty = function (x, y) {
+			        		        if (!alreadyAdd) {
+			        		            var character = lab.entityOn(x, y, entities);
+			                		    if (!character) {
+			                		        alreadyAdd = true;
+			                		        insertActor(player1, x, y);
+			                		        entities.push(player1[player1.length-1]);
+			                		    }
+			        		        }
+			        		    }
+			    		        execIfIsEmpty(mov.pos.x-1, mov.pos.y);
+			    		        execIfIsEmpty(mov.pos.x, mov.pos.y-1);
+			    		        execIfIsEmpty(mov.pos.x+1, mov.pos.y);
+			    		        execIfIsEmpty(mov.pos.x, mov.pos.y+1);
+			    		    } else {
+			    		        // Fuuuuuusion
+			    		        entities = delTabElement(entities, others[0]);
+			    		        player1 = delTabElement(player1, others[0]);
+			    		        // TODO stats
+			    		    }
+			    		} else {
 				    		printMessage('I KILLED YOU, BITCH !', true);
-						var other_player = mov;
-						entities = delTabElement(entities,other_player);
-						player.setNombreAction(0);
+						    var other_player = mov;
+						    entities = delTabElement(entities,other_player);
+						    player1 = delTabElement(player1,other_player);
+						    player.setNombreAction(0)
+						}
 					}
 				}				
 
@@ -297,9 +335,12 @@ function insertActor(tabPlayer, x, y) {
 	tabPlayer[tabPlayer.length-1].setPosition(x, y);
 
 	insertActor.id++;
+	if (insertActor.id > 2) {
+	    insertActor.id = 1;
+	}
 }
 function createTable(x, y, entities) {
-	var table = new Actor();
+	var table = new Actor(true);
 	table.setSpriteId(99);
 	table.setPosition(x,y);
 	entities.push(table);
