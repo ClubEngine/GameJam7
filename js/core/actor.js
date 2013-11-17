@@ -8,6 +8,7 @@ var Actor = function (isTable,ismonster) {
 	this.nombreAction = 1;
 	this.PV = 1 ;
 	this.Attack = 1 ;
+	this.maxPV = 1;
 	this.table = isTable;
 	this.monster = ismonster;
 }
@@ -57,6 +58,12 @@ Actor.prototype = {
 	},
 	setAttack: function (n) {
 		this.Attack = n;
+	},
+	incrPV: function (n) {
+	    this.PV += this.PV/10;
+	    if (this.PV > this.maxPV) {
+	        this.PV = this.maxPV;
+	    }
 	},
 
 	getAttack: function (n) {
