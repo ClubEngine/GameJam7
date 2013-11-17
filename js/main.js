@@ -101,7 +101,7 @@ $(document).ready(function () {
 						focusPlayer();
 				} else if (action.state == Action.END_TURN) {
 						indexPlayer = (indexPlayer + 1) % players.length;
-						players[indexPlayer].setNumberAction(20);	
+						players[indexPlayer].setNumberAction(20);
 				    	actor=players[indexPlayer].currentActor();
 				}
 				

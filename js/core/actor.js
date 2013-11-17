@@ -51,6 +51,9 @@ Actor.prototype = {
 	},
 	setPV: function (n) {
 		this.PV = n;
+		if (this.PV > this.maxPV) {
+		    this.maxPV = this.PV;
+		}
 	},
 
 	getPV: function () {
@@ -60,7 +63,7 @@ Actor.prototype = {
 		this.Attack = n;
 	},
 	incrPV: function (n) {
-	    this.PV += this.PV/10;
+	    this.PV += Math.floor(this.maxPV/10);
 	    if (this.PV > this.maxPV) {
 	        this.PV = this.maxPV;
 	    }
@@ -71,6 +74,6 @@ Actor.prototype = {
 	},
 	
 	printCarac: function () {
-	    printCarac("Actions restantes : <b>"+this.nombreAction+"</b><br />PVs : <b>"+this.PV+"</b><br />Attaque : <b>"+this.Attack+'</b>');
+	    printCarac("Actions restantes : <b>"+this.nombreAction+"</b><br />PVs : <b>"+this.PV+"</b>/<b>"+this.maxPV+"</b><br />Attaque : <b>"+this.Attack+'</b>');
 	},
 }
