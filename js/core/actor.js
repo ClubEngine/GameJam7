@@ -47,6 +47,6 @@ Actor.prototype = {
 	},
 	
 	printCarac: function () {
-	    printCarac("Actions restantes : "+this.nombreAction);
+	    printCarac("Actions restantes : "+this.nombreAction+"<br />PVs :"+"<br />Attaque :");
 	},
 }
