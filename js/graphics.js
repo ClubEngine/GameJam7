@@ -90,7 +90,7 @@ Screen.prototype = {
 		this.playersMapCxt.drawImage(this.sprites['fire'], x, y);
 	},
     drawTable: function(x, y) {
-	this.context.drawImage(this.sprites['table'], x, y);
+	this.playersMapCxt.drawImage(this.sprites['table'], x, y);
         
     },
 	drawCursor: function(x, y) {
