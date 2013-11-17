@@ -78,8 +78,12 @@ $(document).ready(function () {
 		initKdConf(action);	
 		kd.run(function () {
 			kd.tick();
-			actor.printCarac();
-			focusPlayer();
+			if (actor) {
+			    actor.printCarac();
+			    focusPlayer();
+			} else {
+			    eraseCarac();
+			}
 
 		// prevent  actor to move super quickly	
 		if (action.state != Action.IDLE) {
@@ -162,7 +166,13 @@ $(document).ready(function () {
 					}				
 
 				}
-				actor.printCarac();
+				if (actor) {
+				    actor.printCarac();
+				} else {
+				    eraseCarac();
+				    printMessage("Player "+(indexPlayer+1)+" win !", true);
+				    kd.stop();
+				}
 
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 				  ball = new Actor();
