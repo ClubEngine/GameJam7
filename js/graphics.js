@@ -164,7 +164,11 @@ Graphics.prototype = {
 		    screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
 		} else if (spriteId == SpriteCode.FIRE_BALL) {
 		    screen.drawFire(32*pos.x, 32*pos.y);
+		} else if (spriteId == SpriteCode.TABLE) {
+		    screen.drawTable(32*pos.x,32*pos.y)
 		}
+			
+		
 		if (entity == player) {
 			screen.drawCursor(32*pos.x,32*pos.y -32)
 		}
