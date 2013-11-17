@@ -148,8 +148,15 @@ $(document).ready(function () {
 								printMessage('I KILLED YOU, BITCH !', true);
 								var other_actor = mov;
 								entities = delTabElement(entities,other_actor);
-								players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), other_actor));
-								players[indexPlayer].setCurrentActor(actor);
+								for (i in players) {
+									players[i].setActors(delTabElement(players[i].actors(), other_actor));
+									if (i == indexPlayer){
+										players[i].setCurrentActor(actor);
+									}else{
+										players[i].previousActor();
+									}									
+									
+								}
 							}
 						}
 					}				
