@@ -127,25 +127,33 @@ $(document).ready(function () {
 			    		    } else {
 			    		        // Fuuuuuusion
 			    		        entities = delTabElement(entities, others[0]);
-			    		        //player1 = delTabElement(player1, others[0]);
+			    		        player1.setActors(delTabElement(player1.actors(), others[0]));
+								player1.setCurrentActor(actor);
 			    		        // TODO stats
 			    		    }
 			    		} else {
 				    		printMessage('I KILLED YOU, BITCH !', true);
 						var other_actor = mov;
 						actor.setNombreAction(0);
-						while (actor.PV <= 0 || other_actor.PV <= 0 ) {
-							other_actor.setPV(other_actor.PV - actor.Attack);
+						while (actor.PV > 0 || other_actor.PV > 0 ) {
+							other_actor.setPV(getPV(other_actor) - getAttack(actor));
 							if ( other_actor.PV <=0) {
 								break;
 							}
-							actor.setPV( actor.PV - other_actor.Attack);
+							actor.setPV( getPV(actor) - getAttack(other_actor));
+							console.log("encoulé");
 						}
 						if ( actor.PV <=0) {
 							entities = delTabElement(entities, actor);
+							player1.setActors(delTabElement(player1.actors(), actor));
+							player1.setCurrentActor(player1.actors()[0]);
+							console.log("zboub");
 						}
 						if ( other_actor.PV <=0) {
 							entities = delTabElement(entities, other_actor);
+							player1.setActors(delTabElement(player1.actors(), other_actor));
+							player1.setCurrentActor(actor);
+							console.log("pénis");
 						}
 
 							
