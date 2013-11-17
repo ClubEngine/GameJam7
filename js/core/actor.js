@@ -5,7 +5,7 @@ var Actor = function () {
 	this.pos = new Vector(0,0);
 	this.spriteId = 0;
 	this.dir = Action.DOWN;
-	this.nombreAction = 0;
+	this.nombreAction = 1;
 }
 
 Actor.prototype = {
@@ -13,10 +13,12 @@ Actor.prototype = {
 		return this.pos;
 	},
 
-	setPosition: function (x,y) {
-		this.pos.x = x;
-		this.pos.y = y;
-		--this.nombreAction;
+	setPosition: function (x,y) {	
+		if (this.nombreAction > 0) {	
+			this.pos.x = x;
+			this.pos.y = y;
+			--this.nombreAction;
+		}
 	},
 	
 	getDirection: function (dir) {

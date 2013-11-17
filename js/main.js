@@ -17,8 +17,12 @@ $(document).ready(function () {
 	var action = function() { this.state = Action.IDLE; };
 	
 
-	var player1 = new Array(new Actor()); player1[0].setSpriteId(1); player1[0].setPosition(1, 0);
-	player1[1] = new Actor(); player1[1].setSpriteId(1); player1[1].setPosition(1, 0);
+	var player1 = new Array
+	insertActor(player1);
+	insertActor(player1);
+	for (i=0; i<player1.length; i++) {
+		player1[i].setNombreAction(20);
+	}
 	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
 	var player = player1[0];
 	var indexPlayer = 0;
@@ -76,7 +80,7 @@ $(document).ready(function () {
 				    	focusPlayer();
 					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
-				    if (indexPlayer < player1.length){
+				    if (indexPlayer < player1.length-1){
 				    	player = player1[indexPlayer+1];
 						indexPlayer++;
 				    	focusPlayer();
@@ -268,3 +272,17 @@ function playRNo()
 	SoundManager.play('RNo'+i);
 }
 
+
+// insert un actor dans le tableau avec sprite et tout le bordel
+function insertActor(tabPlayer) {
+	tabPlayer[tabPlayer.length] = new Actor();
+	tabPlayer[tabPlayer.length-1].setSpriteId(1);
+	 tabPlayer[tabPlayer.length-1].setPosition(1, 0);
+}
+
+// set le nombre de coup de tous les actor d'un tableau
+function setNumberAction(tabPlayer, n) {
+	for (i=0; i<tabPlayer.length; i++) {
+		tabPlayer[i].setNombreAction(n);
+	}
+}
