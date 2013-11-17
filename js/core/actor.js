@@ -6,6 +6,8 @@ var Actor = function () {
 	this.spriteId = 0;
 	this.dir = Action.DOWN;
 	this.nombreAction = 1;
+	this.PV = 1 ;
+	this.Attack = 1 ;
 }
 
 Actor.prototype = {
@@ -43,6 +45,20 @@ Actor.prototype = {
 
 	getNombreAction: function (n) {
 		return this.nombreAction;
+	},
+	setPV: function (n) {
+		this.PV = n;
+	},
+
+	getPV: function (n) {
+		return this.PV;
+	},
+	setAttack: function (n) {
+		this.Attack = n;
+	},
+
+	getAttack: function (n) {
+		return this.Attack;
 	},
 	
 	printCarac: function () {

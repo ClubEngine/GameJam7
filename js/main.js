@@ -22,6 +22,13 @@ $(document).ready(function () {
 	insertActor(player1,1, 0);
 	insertActor(player1, 9, 2);
 	setNumberAction(player1, 20);
+	player1[0].setPV(35);
+	player1[1].setPV(150);
+	player1[0].setAttack(10);
+	player1[1].setAttack(10);
+
+	
+	
 	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
 	var player = player1[0];
 	var indexPlayer = 0;
@@ -103,11 +110,16 @@ $(document).ready(function () {
 				    		// mov est l'entitée attaquée
 				    		printMessage('I KILLED YOU, BITCH !', true);
 						var other_player = mov;
-						entities = delTabElement(entities,other_player);
-						player.setNombreAction(0);
-					}
-				}				
+						while (player.PV <= 0 || other_player.PV <= 0 ) {
+							other_player.setPV(other_player.PV - player_Attack);
+							if ( other_player.PV <=0) {
+								break;
+							}
+							player.setPV( player.PV - other_player.Attack);
+						}
+					}				
 
+				}
 				player.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
@@ -118,6 +130,7 @@ $(document).ready(function () {
 					entities.push(ball);
 					playBall();
 				}*/
+				
 			}
 		}
 
