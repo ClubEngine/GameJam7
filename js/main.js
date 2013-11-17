@@ -103,6 +103,8 @@ $(document).ready(function () {
 					
 
 				}
+				
+				player.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
