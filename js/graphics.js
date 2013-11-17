@@ -12,7 +12,6 @@ var Screen = function(callback) {
     var nbSpritesLoading = 0, nbSpritesLoaded = 0;
 
     var spritesImg = {
-<<<<<<< HEAD
 	// Players
 	'player13': 'assets/amg1_bk1.png',
 	'player14': 'assets/amg1_fr1.png',
@@ -35,41 +34,13 @@ var Screen = function(callback) {
 
 	// Elements
 	'fire': 'assets/conjure_ball_lightning.png',
+	'cursor': 'assets/unseen_weapon.png',
 
 	// Labyrinthurtoi
 	'wall': 'assets/stone_brick12.png',
 	'floor': 'assets/crystal_floor3.png',
 	'arena': 'assets/rough_red0.png',
-=======
-	    // Players
-	    'player13': 'assets/amg1_bk1.png',
-	    'player14': 'assets/amg1_fr1.png',
-	    'player12': 'assets/amg1_lf1.png',
-	    'player11': 'assets/amg1_rt1.png',
-	    'player23': 'assets/npc5_bk1.png',
-	    'player24': 'assets/npc5_fr1.png',
-	    'player22': 'assets/npc5_lf1.png',
-	    'player21': 'assets/npc5_rt1.png',
-
-	    // Monsters
-	    'monster13': 'assets/scr1_bk1.png',
-	    'monster14': 'assets/scr1_fr1.png',
-	    'monster12': 'assets/scr1_lf1.png',
-	    'monster11': 'assets/scr1_rt1.png',
-	    'monster23': 'assets/wmg1_bk1.png',
-	    'monster24': 'assets/wmg1_fr1.png',
-	    'monster22': 'assets/wmg1_lf1.png',
-	    'monster21': 'assets/wmg1_rt1.png',
-
-	    // Elements
-	    'fire': 'assets/conjure_ball_lightning.png',
-
-	    // Labyrinthurtoi
-	    'wall': 'assets/stone_brick12.png',
-	    'floor': 'assets/crystal_floor3.png',
-	    'arena': 'assets/rough_red0.png',
->>>>>>> bcf40915d2c6b81a8b4cbf0984b64ffbbb4e7074
-        'table': 'assets/cestpourtoibenjamin.png'
+       'table': 'assets/cestpourtoibenjamin.png'
 
     }
 
@@ -119,31 +90,20 @@ Screen.prototype = {
 		this.playersMapCxt.drawImage(this.sprites['fire'], x, y);
 	},
     drawTable: function(x, y) {
-<<<<<<< HEAD
 	this.context.drawImage(this.sprites['table'], x, y);
         
-    }
+    },
+	drawCursor: function(x, y) {
+		this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-1);        
+    	}
+
    
 } 
     var MapGraphic = function (labyrinth) {
 	this.labyrinth = labyrinth;
     }
 
-    MapGraphic.prototype = {
-=======
-	    this.context.drawImage(this.sprites['table'], x, y);
-    },
-	drawSelectedCharacter: function (x, y) {
-		this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-32);
-	}
-}
-    
-var MapGraphic = function (labyrinth) {
-	this.labyrinth = labyrinth;
-}
-
 MapGraphic.prototype = {
->>>>>>> bcf40915d2c6b81a8b4cbf0984b64ffbbb4e7074
 	print: function (origin_x, origin_y, visionScope) {
 	    // Parcours de la matrice et affichage d'un 
 	    // carré de couleur différente pour chaque nombre
@@ -188,25 +148,28 @@ Graphics.prototype = {
 	    this.mapGraphic.print(0, 0, 1024);
 	},
 	
-	refreshAll: function(entities) {
+	refreshAll: function(entities,player) {
 	    screen.playersMapCxt.clearRect(0, 0, 736, 1024);
 
 	    for (var i in entities) {
-		    var entity = entities[i];
-		    var pos = entity.getPosition();
-		    var spriteId = entity.getSpriteId();
+		var entity = entities[i];
+		var pos = entity.getPosition();
+		var spriteId = entity.getSpriteId();
 
-		    if (spriteId == SpriteCode.PLAYER1) {
-		        screen.drawPlayer(1, 32 * pos.x, 32 * pos.y, entity.getDirection());
-		    } else if (spriteId == SpriteCode.PLAYER2) {
-		        screen.drawPlayer(2, 32 * pos.x, 32 * pos.y, entity.getDirection());
-		    } else if (spriteId == SpriteCode.MONSTER1) {
-		        screen.drawMonster(1, 32*pos.x,32*pos.y, entity.getDirection());
-		    } else if (spriteId == SpriteCode.MONSTER2) {
-		        screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
-		    } else if (spriteId == SpriteCode.FIRE_BALL) {
-		        screen.drawFire(32*pos.x, 32*pos.y);
-		    }
+		if (spriteId == SpriteCode.PLAYER1) {
+		    screen.drawPlayer(1, 32 * pos.x, 32 * pos.y, entity.getDirection());
+		} else if (spriteId == SpriteCode.PLAYER2) {
+		    screen.drawPlayer(2, 32 * pos.x, 32 * pos.y, entity.getDirection());
+		} else if (spriteId == SpriteCode.MONSTER1) {
+		    screen.drawMonster(1, 32*pos.x,32*pos.y, entity.getDirection());
+		} else if (spriteId == SpriteCode.MONSTER2) {
+		    screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
+		} else if (spriteId == SpriteCode.FIRE_BALL) {
+		    screen.drawFire(32*pos.x, 32*pos.y);
+		}
+		if (entity == player) {
+			screen.drawCursor(32*pos.x,32*pos.y -32)
+		}
 	    }
 	}
 }

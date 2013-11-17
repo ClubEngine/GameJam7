@@ -94,7 +94,7 @@ $(document).ready(function () {
 				    printMessage('Aïe.', false);
 				} else {
 				    // mov est l'entitée attaquée
-				    printMessage('I KILLED YOU, BITHC !', true);
+				    printMessage('I KILLED YOU, BITCH !', true);
 					var other_player = mov;
 					entities = delTabElement(entities,other_player);
 
