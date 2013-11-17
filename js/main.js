@@ -25,14 +25,16 @@ $(document).ready(function () {
 
 	// player 1
 	var player1 = new Player();
-	insertActor(player1, entities, 1, 0, 300, 100,1);
-	insertActor(player1, entities, 9, 2, 500 , 200,2);
+	insertActorId(player1, entities, 1, 0,1);
+	insertActorId(player1, entities, 9, 2,2);
+	insertActorId(player1, entities, 3, 5,3);
 	player1.setNumberAction(20);
 
 	// player 2
 	var player2 = new Player();
-	insertActor(player2, entities, 1, 25, 300, 100,1);
-	insertActor(player2, entities, 5, 25, 500, 200,2);
+	insertActorId(player2, entities, 1, 25,1);
+	insertActorId(player2, entities, 5, 25,2);
+	insertActorId(player2, entities, 5, 26,3);
 	player2.setNumberAction(20);
 
 	players[0]=player1;
@@ -129,7 +131,7 @@ $(document).ready(function () {
 								if ( other_actor.PV <=0) {
 								pos_new_mob = other_actor.pos ;
 								entities = delTabElement(entities,other_actor);
-								insertActor(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y, 100,100,randomMunster())
+								insertActorId(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y,randomMunster())
 								printMessage('Un monstre rejoint votre camp');
 								}
 																	
@@ -174,9 +176,28 @@ $(document).ready(function () {
 								} else {
 									// Fuuuuuusion
 									entities = delTabElement(entities, others[0]);
-									players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
-									players[indexPlayer].setCurrentActor(actor);
+
+									// decision du ouveau type
+			
+									// rogue + guerrier = mage
+									if ((actor.getSpriteId() ==1 && others[0].getSpriteId() == 3)||(actor.getSpriteId() == 3 && others[0].getSpriteId() == 1)){
+										players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
+										players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), actor));
+										tmpActor=insertActorId(players[indexPlayer], entities, actor.getPosition().x, actor.getPosition().y, 2);
+										players[indexPlayer].setCurrentActor(tmpActor);
+										players[indexPlayer].currentActor().setPV(actor.getPV() + others[0].getPV());
+										entities = delTabElement(entities, actor);
+										actor=tmpActor;
+									
+									// fusion identique ou non definie
+									} else  {
+										players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
+										players[indexPlayer].setCurrentActor(actor);
+										actor.setPV(actor.getPV() + others[0].getPV());
+										actor.setAttack((actor.getAttack() + others[0].getAttack())/2);
+									} 
 									// TODO stats
+									
 									
 								}
 							} else {
@@ -402,6 +423,42 @@ function playRNo()
 }
 
 
+function idToActor(id) {
+	actor = new Actor();
+	actor.setSpriteId(id);
+	
+	pv = 0;
+	attack = 0;
+	
+	// rogue
+	if (id == 1) {
+		pv=300;
+		attack = 200;
+	// guerrier
+	} else if (id == 3) {
+		pv=400;
+		attack = 100;
+	// mae chauve
+	} else if (id == 2) {
+		pv=400;
+		attack = 300;
+	}
+	actor.setPV(pv);
+	actor.setAttack(attack);
+	
+	return actor;
+}
+
+
+function insertActorId(player, entities, x, y, type) {
+	actor = idToActor(type);
+	player.addActor(actor);
+	actor.setPosition(x, y);
+	entities.push(actor);
+	return actor;
+}
+	
+
 // insert un actor dans le tableau avec sprite et tout le bordel
 function insertActor(player, entities, x, y, pv, attack, type) {
 
@@ -413,6 +470,7 @@ function insertActor(player, entities, x, y, pv, attack, type) {
 	actor.setAttack(attack);
 
 	entities.push(actor);
+	return actor;
 
 }
 function createTable(x, y, entities) {
