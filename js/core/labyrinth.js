@@ -47,6 +47,18 @@ Labyrinth.prototype = {
 		return c == CaseCode.WALL || c == CaseCode.UNDEFINED;
 	},
 
+    entityOn: function(x,y,entities,entity) {
+        for (var j in entities) {
+                tmp_other = entities[j];
+                if (!entity || (entity && (tmp_other != entity))) {
+                    if (x == tmp_other.getPosition().x &&
+                        y == tmp_other.getPosition().y) {
+                        return tmp_other;
+                    }
+                }
+        }
+        return false;
+    },
 	
 	// Set the case code into the coo x y
 	set: function(x,y,code) {

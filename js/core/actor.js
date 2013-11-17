@@ -4,7 +4,7 @@
 var Actor = function () {
 	this.pos = new Vector(0,0);
 	this.spriteId = 0;
-	this.dir = Action.UP;
+	this.dir = Action.DOWN;
 }
 
 Actor.prototype = {

@@ -36,7 +36,7 @@ function doMovementFireBall(actor, laby, action)
 	return laby.isObstacle(nextPos.x, nextPos.y);
 }
 
-function doMovement(actor, laby, action)
+function doMovement(actor, laby, action, entities)
 {
 	var currentPos = actor.getPosition();
 	var nextPos = new Vector(currentPos.x, currentPos.y);
@@ -69,8 +69,12 @@ function doMovement(actor, laby, action)
 	// test if the new position is not an bstacle
 	if (! laby.isObstacle(nextPos.x, nextPos.y))
 	{
-		actor.setPosition(nextPos.x, nextPos.y);
+	    if (laby.entityOn(nextPos.x, nextPos.y, entities)) {
+	        return 1;
+	    } else {
+	        actor.setPosition(nextPos.x, nextPos.y);
+	        return 0;
+	    }
 	}
-
-	return laby.isObstacle(nextPos.x, nextPos.y);
+	return 2;
 }

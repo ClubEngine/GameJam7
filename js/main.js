@@ -18,7 +18,7 @@ $(document).ready(function () {
 	
 
 	var player1 = new Actor(); player1.setSpriteId(1); player1.setPosition(1, 0);
-	var player2 = new Actor(); player2.setSpriteId(1); player2.setPosition(9, 2);
+	var player2 = new Actor(); player2.setSpriteId(2); player2.setPosition(9, 2);
 	var player = player1;
 
 	var entities = new Array();
@@ -27,7 +27,7 @@ $(document).ready(function () {
 	//entities[0] = player;
 
 	
-	// spwan monsters
+	// spawn monsters
 	var freeCases = new Array();
 	for(var x=0 ; x<lab.getWidth() ; ++x) {
 		for(var y=0 ; y<lab.getHeight() ; ++y) {
@@ -36,7 +36,7 @@ $(document).ready(function () {
 			}
 		}
 	}
-	console.log(freeCases.length);
+	
 	for(var nb=0;nb < 10;++nb) {
 		var id = Math.floor(Math.random()*freeCases.length % freeCases.length);
 		var monster = new Actor();
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
 	var graphics = new Graphics(startGame);
 	
-	function selectPlayer() {
+	function focusPlayer() {
 	    window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
 	}
 
@@ -69,15 +69,20 @@ $(document).ready(function () {
 				
 				if (action.state == Action.CHANGE_PLAYER_L) {
 				    player = player1;
-				    selectPlayer();
+				    focusPlayer();
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
 				    player = player2;
-				    selectPlayer();
+				    focusPlayer();
 				}
 				
-				if (!doMovement(player, lab, action.state)) {
-					playPas();
-					window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
+				var mov = doMovement(player, lab, action.state, entities);
+				if (mov == 0) {
+					//playPas();
+					focusPlayer();
+				} else if (mov == 1) {
+				    console.log('BOOOOOOM !');
+				} else {
+				    console.log('Aïe.');
 				}
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
@@ -110,11 +115,11 @@ $(document).ready(function () {
                                                                         toRm = true;
                                                                 }
                                                         }
-                                                }       
+                                                }
                                         }       
                                         if (toRm) {
                                                 newEntities = delTabElement(newEntities, ball);
-						playDepop();
+						                        playDepop();
                                         }
 
 				} 
