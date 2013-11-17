@@ -343,8 +343,8 @@ function insertActor(player, entities, x, y) {
 	player.addActor(actor);
 	actor.setSpriteId(insertActor.id);
 	actor.setPosition(x, y);
-	actor.setPV(35+insertActor*100);
-	actor.setAttack(10+insertActor*100);
+	actor.setPV(35+insertActor.id*100);
+	actor.setAttack(10+insertActor.id*100);
 
 	entities.push(actor);
 
