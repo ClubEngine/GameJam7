@@ -21,6 +21,15 @@ var Screen = function(callback) {
 	'player24': 'assets/npc5_fr1.png',
 	'player22': 'assets/npc5_lf1.png',
 	'player21': 'assets/npc5_rt1.png',
+	'player31': 'assets/Guerrier1droite.png',
+	'player32': 'assets/Guerrier1gauche.png',
+	'player33': 'assets/Guerrier1dos.png',
+	'player34': 'assets/Guerrier1devant.png',
+	'player41': 'assets/Guerrier1droite.png',
+	'player42': 'assets/Guerrier1gauche.png',
+	'player43': 'assets/Guerrier1dos.png',
+	'player44': 'assets/Guerrier1devant.png',
+	
 
 	// Monsters
 	'monster13': 'assets/scr1_bk1.png',
