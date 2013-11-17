@@ -127,7 +127,8 @@ $(document).ready(function () {
 			    		    } else {
 			    		        // Fuuuuuusion
 			    		        entities = delTabElement(entities, others[0]);
-			    		        //player1 = delTabElement(player1, others[0]);
+			    		        player1.setActors(delTabElement(player1.actors(), others[0]));
+								player1.setCurrentActor(actor);
 			    		        // TODO stats
 			    		    }
 			    		} else {
@@ -135,7 +136,8 @@ $(document).ready(function () {
 						var other_actor = mov;
 						entities = delTabElement(entities,other_actor);
 						actor.setNombreAction(0);
-						//player1 = delTabElement(player1,other_player);
+						player1.setActors(delTabElement(player1.actors(), other_actor));
+						player1.setCurrentActor(actor);
 						}
 					}
 				}				

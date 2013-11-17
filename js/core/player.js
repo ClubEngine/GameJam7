@@ -8,6 +8,11 @@ Player.prototype = {
 	actors: function (){
 		return this.tabActor;
 	},
+	
+	setActors: function(tab) {
+		this.tabActor = tab;
+	
+	},
 
 	addActor: function (a) {
 		this.tabActor.push(a);
@@ -19,7 +24,15 @@ Player.prototype = {
 		}	
 		return null;
 	},
-	
+
+	setCurrentActor: function(a) {
+		for (i=0; i<this.tabActor.length; i++) {
+			if (this.tabActor[i] == a){
+				this.indexActor = i;
+			}
+		}	
+		
+	},	
 	// decale l'acteur et retourne l'acteur courant
 	nextActor: function() {
 		if (this.tabActor.length > 0) {
