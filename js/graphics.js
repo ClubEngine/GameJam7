@@ -169,6 +169,9 @@ Graphics.prototype = {
 		    screen.drawPlayer(1, 32 * pos.x, 32 * pos.y, entity.getDirection());
 		} else if (spriteId == SpriteCode.PLAYER2) {
 		    screen.drawPlayer(2, 32 * pos.x, 32 * pos.y, entity.getDirection());
+		} else if (spriteId == SpriteCode.PLAYER3) {
+		    screen.drawPlayer(3, 32 * pos.x, 32 * pos.y, entity.getDirection());
+
 		} else if (spriteId == SpriteCode.MONSTER1) {
 		    screen.drawMonster(1, 32*pos.x,32*pos.y, entity.getDirection());
 		} else if (spriteId == SpriteCode.MONSTER2) {

@@ -2,6 +2,7 @@ SpriteCode = {
 	
 	PLAYER1 : 1,
 	PLAYER2 : 2,
+	PLAYER3 : 3,
 	MONSTER1 : 11,
 	MONSTER2 : 12,
 	FIRE_BALL: 21,
