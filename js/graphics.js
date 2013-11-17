@@ -34,6 +34,7 @@ var Screen = function(callback) {
 
 		// Elements
 		'fire': 'assets/conjure_ball_lightning.png',
+		'cursor': 'assets/unseen_weapon.png',
 
 		// Labyrinth
 		'wall': 'assets/stone_brick12.png',
@@ -85,7 +86,10 @@ Screen.prototype = {
 	},
 	drawFire: function(x, y) {
 		this.playersMapCxt.drawImage(this.sprites['fire'], x, y);
-	}
+	},
+	drawSelectedCharacter: function (x, y) {
+		this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-32);
+	},
 }
   
 var MapGraphic = function (labyrinth) {
@@ -139,7 +143,7 @@ Graphics.prototype = {
 		this.mapGraphic.print(0, 0, 1024);
 	},
 	
-	refreshAll: function(entities) {
+	refreshAll: function(entities, player) {
 	    screen.playersMapCxt.clearRect(0, 0, 736, 1024);
 
 		for (var i in entities) {
@@ -150,13 +154,16 @@ Graphics.prototype = {
 			if (spriteId == SpriteCode.PLAYER1) {
 				screen.drawPlayer(1, 32 * pos.x, 32 * pos.y, entity.getDirection());
 			} else if (spriteId == SpriteCode.PLAYER2) {
-				screen.drawPlayer(2, 32 * pos.x, 32 * pos.y, entity.getDirection());
+				screen.drawPlayer(2, 32 * pos.x, 32 * pos.y-32, entity.getDirection());
 			} else if (spriteId == SpriteCode.MONSTER1) {
 				screen.drawMonster(1, 32*pos.x,32*pos.y, entity.getDirection());
 			} else if (spriteId == SpriteCode.MONSTER2) {
 				screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
 			} else if (spriteId == SpriteCode.FIRE_BALL) {
 				screen.drawFire(32*pos.x, 32*pos.y);
+			}
+			if (entity == player) {
+				screen.drawSelectedCharacter(32*pos.x,32*pos.y);
 			}
 
 		}

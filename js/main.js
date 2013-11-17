@@ -158,7 +158,7 @@ $(document).ready(function () {
 			}
 		}*/		
 
-		graphics.refreshAll(entities);
+		graphics.refreshAll(entities,player);
 		});	
 	}
 });
