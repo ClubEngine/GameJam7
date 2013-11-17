@@ -105,128 +105,130 @@ $(document).ready(function () {
 						//playPas();
 						focusPlayer();
 					} else if (mov == 1) {
-				    	printMessage('Aïe.', false);
+						printMessage('Aïe.', false);
 					} else {
-				    		// mov est l'entitée attaquée
-			    		if (mov.table) {
-			    		    printMessage('Glou glou glou.', true);
-			    		    var others = [];
-			    		    var addEntityToOther = function (x, y) {
-			    		        var character = lab.entityOn(x, y, entities, actor);
-			        		    if (character) {others.push(character)}
-			    		    }
-			    		    addEntityToOther(mov.pos.x-1, mov.pos.y);
-			    		    addEntityToOther(mov.pos.x, mov.pos.y-1);
-			    		    addEntityToOther(mov.pos.x+1, mov.pos.y);
-			    		    addEntityToOther(mov.pos.x, mov.pos.y+1);
-			    		    if (others.length == 0) {
-			    		        // Dédoublement
-			        		    var alreadyAdd = false;
-			        		    var execIfIsEmpty = function (x, y) {
-			        		        if (!alreadyAdd) {
-			        		            var character = lab.entityOn(x, y, entities);
-			                		    if (!character) {
-			                		        alreadyAdd = true;
-			                		        insertActor(players[indexPlayer], entities, x, y);
-			                		    }
-			        		        }
-			        		    }
-			    		        execIfIsEmpty(mov.pos.x-1, mov.pos.y);
-			    		        execIfIsEmpty(mov.pos.x, mov.pos.y-1);
-			    		        execIfIsEmpty(mov.pos.x+1, mov.pos.y);
-			    		        execIfIsEmpty(mov.pos.x, mov.pos.y+1);
-			    		    } else {
-			    		        // Fuuuuuusion
-			    		        entities = delTabElement(entities, others[0]);
-			    		        players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
+						// mov est l'entitée attaquée
+						if (actor.getNombreAction() > 0) {
+							actor.setNombreAction(0);
+							if (mov.table) {
+								printMessage('Glou glou glou.', true);
+								var others = [];
+								var addEntityToOther = function (x, y) {
+									var character = lab.entityOn(x, y, entities, actor);
+									if (character) {others.push(character)}
+								}
+								addEntityToOther(mov.pos.x-1, mov.pos.y);
+								addEntityToOther(mov.pos.x, mov.pos.y-1);
+								addEntityToOther(mov.pos.x+1, mov.pos.y);
+								addEntityToOther(mov.pos.x, mov.pos.y+1);
+								if (others.length == 0) {
+									// Dédoublement
+									var alreadyAdd = false;
+									var execIfIsEmpty = function (x, y) {
+										if (!alreadyAdd) {
+											var character = lab.entityOn(x, y, entities);
+											if (!character) {
+												alreadyAdd = true;
+												insertActor(players[indexPlayer], entities, x, y);
+											}
+										}
+									}
+									execIfIsEmpty(mov.pos.x-1, mov.pos.y);
+									execIfIsEmpty(mov.pos.x, mov.pos.y-1);
+									execIfIsEmpty(mov.pos.x+1, mov.pos.y);
+									execIfIsEmpty(mov.pos.x, mov.pos.y+1);
+								} else {
+									// Fuuuuuusion
+									entities = delTabElement(entities, others[0]);
+									players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
+									players[indexPlayer].setCurrentActor(actor);
+									// TODO stats
+								}
+							} else {
+								printMessage('I KILLED YOU, BITCH !', true);
+								var other_actor = mov;
+								entities = delTabElement(entities,other_actor);
+								players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), other_actor));
 								players[indexPlayer].setCurrentActor(actor);
-			    		        // TODO stats
-			    		    }
-			    		} else {
-				    		printMessage('I KILLED YOU, BITCH !', true);
-						var other_actor = mov;
-						entities = delTabElement(entities,other_actor);
-						actor.setNombreAction(0);
-						players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), other_actor));
-						players[indexPlayer].setCurrentActor(actor);
+							}
 						}
 					}
 				}				
 
 				actor.printCarac();
-	
+
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
-					ball = new Actor();
-					ball.setPosition(actor.getPosition().x, actor.getPosition().y);
-					ball.setSpriteId(SpriteCode.FIRE_BALL);
-					ball.setDirection(action.state);
-					entities.push(ball);
-					playBall();
-				}*/
+				  ball = new Actor();
+				  ball.setPosition(actor.getPosition().x, actor.getPosition().y);
+				  ball.setSpriteId(SpriteCode.FIRE_BALL);
+				  ball.setDirection(action.state);
+				  entities.push(ball);
+				  playBall();
+				  }*/
 			}
 		}
 
 		// Move fire balls
 		if (Date.now() > ball_date + 100) {
-                        ball_date = Date.now();
-                        
-                        newEntities = entities.slice();
-                        for (var i in entities) {
-                                if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
-                                        var ball = entities[i];
-                                        toRm = doMovementFireBall(ball, lab, ball.getDirection());
-                                        if (!toRm) {
-                                                for (var j in entities) {
-                                                        if (i!=j) {
-                                                                tmp_other = entities[j];
-                                                                if (ball.getPosition().x == tmp_other.getPosition().x &&
-                                                                        ball.getPosition().y == tmp_other.getPosition().y) {
-                                                                        newEntities = delTabElement(newEntities, tmp_other);    
-                                                                        toRm = true;
-                                                                }
-                                                        }
-                                                }
-                                        }       
-                                        if (toRm) {
-                                                newEntities = delTabElement(newEntities, ball);
-						                        playDepop();
-                                        }
+			ball_date = Date.now();
+
+			newEntities = entities.slice();
+			for (var i in entities) {
+				if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
+					var ball = entities[i];
+					toRm = doMovementFireBall(ball, lab, ball.getDirection());
+					if (!toRm) {
+						for (var j in entities) {
+							if (i!=j) {
+								tmp_other = entities[j];
+								if (ball.getPosition().x == tmp_other.getPosition().x &&
+										ball.getPosition().y == tmp_other.getPosition().y) {
+									newEntities = delTabElement(newEntities, tmp_other);    
+									toRm = true;
+								}
+							}
+						}
+					}       
+					if (toRm) {
+						newEntities = delTabElement(newEntities, ball);
+						playDepop();
+					}
 
 				} 
-                        }
-                        entities = newEntities;
-                }
+			}
+			entities = newEntities;
+		}
 
 		// Anim monsters. Move to a neighbour case randomly.
 		/*if (Date.now() > anim_date + 1000) {		
-			anim_date = Date.now();
-			for (var i in entities) {
-				if (entities[i].getSpriteId() == SpriteCode.MONSTER1) {
-					var rdir = Math.floor(Math.random()*4);
-				console.log(rdir);
-					var vdir = new Vector(0, 0);
-					switch(rdir) {
-						case 0:
-							vdir.x = 1;
-							break;
-						case 1:
-							vdir.x = -1;
-							break;
-						case 2:
-							vdir.y = 1;
-							break;
-						case 3:
-							vdir.y = -1;
-							break;
-					}
-					var cpos = entities[i].getPosition();
-		
-					if(!lab.isObstacle(cpos.x+vdir.x, cpos.y+vdir.y)) {
-						entities[i].setPosition(cpos.x+vdir.x, cpos.y+vdir.y);	
-					}
-				}
-			}
-		}*/		
+		  anim_date = Date.now();
+		  for (var i in entities) {
+		  if (entities[i].getSpriteId() == SpriteCode.MONSTER1) {
+		  var rdir = Math.floor(Math.random()*4);
+		  console.log(rdir);
+		  var vdir = new Vector(0, 0);
+		  switch(rdir) {
+		  case 0:
+		  vdir.x = 1;
+		  break;
+		  case 1:
+		  vdir.x = -1;
+		  break;
+		  case 2:
+		  vdir.y = 1;
+		  break;
+		  case 3:
+		  vdir.y = -1;
+		  break;
+		  }
+		  var cpos = entities[i].getPosition();
+
+		  if(!lab.isObstacle(cpos.x+vdir.x, cpos.y+vdir.y)) {
+		  entities[i].setPosition(cpos.x+vdir.x, cpos.y+vdir.y);	
+		  }
+		  }
+		  }
+		  }*/		
 
 		graphics.refreshAll(entities,actor);
 		});	
@@ -334,8 +336,8 @@ function playRNo()
 function insertActor(player, entities, x, y) {
 	// variable static
 	if ( typeof insertActor.id == 'undefined' ) {
-        insertActor.id = 1;
-    }
+		insertActor.id = 1;
+	}
 
 	actor = new Actor();
 	player.addActor(actor);
@@ -343,10 +345,10 @@ function insertActor(player, entities, x, y) {
 	actor.setPosition(x, y);
 
 	entities.push(actor);
-	
+
 	insertActor.id++;
 	if (insertActor.id > 2) {
-	    insertActor.id = 1;
+		insertActor.id = 1;
 	}
 }
 function createTable(x, y, entities) {
@@ -355,7 +357,7 @@ function createTable(x, y, entities) {
 	table.setPosition(x,y);
 	entities.push(table);
 }
-	
-	
+
+
 
 
