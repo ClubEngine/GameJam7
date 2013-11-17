@@ -17,13 +17,19 @@ $(document).ready(function () {
 	var action = function() { this.state = Action.IDLE; };
 	
 
-	var player1 = new Actor(); player1.setSpriteId(1); player1.setPosition(1, 0);
-	var player2 = new Actor(); player2.setSpriteId(2); player2.setPosition(9, 2);
-	var player = player1;
+	var player1 = new Array
+	insertActor(player1);
+	insertActor(player1);
+	for (i=0; i<player1.length; i++) {
+		player1[i].setNombreAction(20);
+	}
+	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
+	var player = player1[0];
+	var indexPlayer = 0;
 
 	var entities = new Array();
-	entities.push(player1);
-	entities.push(player2);
+	entities.push(player1[0]);
+	entities.push(player1[1]);
 	//entities[0] = player;
 
 	
@@ -69,11 +75,17 @@ $(document).ready(function () {
 				
 				
 				if (action.state == Action.CHANGE_PLAYER_L) {
-				    player = player1;
-				    focusPlayer();
+				    if (indexPlayer > 0){
+				    	player = player1[indexPlayer-1];
+						indexPlayer--;
+				    	focusPlayer();
+					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
-				    player = player2;
-				    focusPlayer();
+				    if (indexPlayer < player1.length-1){
+				    	player = player1[indexPlayer+1];
+						indexPlayer++;
+				    	focusPlayer();
+					}
 				}
 				
 				var mov = doMovement(player, lab, action.state, entities);
@@ -85,6 +97,11 @@ $(document).ready(function () {
 				} else {
 				    // mov est l'entitée attaquée
 				    console.log('BOOOOOOM !');
+					var other_player = mov;
+					entities = delTabElement(entities,other_player);
+
+					
+
 				}
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
@@ -261,3 +278,17 @@ function playRNo()
 	SoundManager.play('RNo'+i);
 }
 
+
+// insert un actor dans le tableau avec sprite et tout le bordel
+function insertActor(tabPlayer) {
+	tabPlayer[tabPlayer.length] = new Actor();
+	tabPlayer[tabPlayer.length-1].setSpriteId(1);
+	 tabPlayer[tabPlayer.length-1].setPosition(1, 0);
+}
+
+// set le nombre de coup de tous les actor d'un tableau
+function setNumberAction(tabPlayer, n) {
+	for (i=0; i<tabPlayer.length; i++) {
+		tabPlayer[i].setNombreAction(n);
+	}
+}

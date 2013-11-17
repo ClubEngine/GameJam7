@@ -70,7 +70,7 @@ function doMovement(actor, laby, action, entities)
 	var ret;
 	if (! laby.isObstacle(nextPos.x, nextPos.y))
 	{
-	    if (ret = laby.entityOn(nextPos.x, nextPos.y, entities)) {
+	    if (ret = laby.entityOn(nextPos.x, nextPos.y, entities, actor)) {
 	        return ret;
 	    } else {
 	        actor.setPosition(nextPos.x, nextPos.y);
