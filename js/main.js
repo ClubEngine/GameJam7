@@ -17,13 +17,15 @@ $(document).ready(function () {
 	var action = function() { this.state = Action.IDLE; };
 	
 
-	var player1 = new Actor(); player1.setSpriteId(1); player1.setPosition(1, 0);
-	var player2 = new Actor(); player2.setSpriteId(2); player2.setPosition(9, 2);
-	var player = player1;
+	var player1 = new Array(new Actor()); player1[0].setSpriteId(1); player1[0].setPosition(1, 0);
+	player1[1] = new Actor(); player1[1].setSpriteId(1); player1[1].setPosition(1, 0);
+	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
+	var player = player1[0];
+	var indexPlayer = 0;
 
 	var entities = new Array();
-	entities.push(player1);
-	entities.push(player2);
+	entities.push(player1[0]);
+	entities.push(player1[1]);
 	//entities[0] = player;
 
 	
@@ -68,11 +70,17 @@ $(document).ready(function () {
 				
 				
 				if (action.state == Action.CHANGE_PLAYER_L) {
-				    player = player1;
-				    focusPlayer();
+				    if (indexPlayer > 0){
+				    	player = player1[indexPlayer-1];
+						indexPlayer--;
+				    	focusPlayer();
+					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
-				    player = player2;
-				    focusPlayer();
+				    if (indexPlayer < player1.length){
+				    	player = player1[indexPlayer+1];
+						indexPlayer++;
+				    	focusPlayer();
+					}
 				}
 				
 				var mov = doMovement(player, lab, action.state, entities);
