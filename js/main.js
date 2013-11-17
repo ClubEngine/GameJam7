@@ -102,46 +102,49 @@ $(document).ready(function () {
 				    	printMessage('Aïe.', false);
 					} else {
 				    		// mov est l'entitée attaquée
-			    		if (mov.table) {
-			    		    printMessage('Glou glou glou.', true);
-			    		    var others = [];
-			    		    var addEntityToOther = function (x, y) {
-			    		        var character = lab.entityOn(x, y, entities, player);
-			        		    if (character) {others.push(character)}
-			    		    }
-			    		    addEntityToOther(mov.pos.x-1, mov.pos.y);
-			    		    addEntityToOther(mov.pos.x, mov.pos.y-1);
-			    		    addEntityToOther(mov.pos.x+1, mov.pos.y);
-			    		    addEntityToOther(mov.pos.x, mov.pos.y+1);
-			    		    if (others.length == 0) {
-			    		        // Dédoublement
-			        		    var alreadyAdd = false;
-			        		    var execIfIsEmpty = function (x, y) {
-			        		        if (!alreadyAdd) {
-			        		            var character = lab.entityOn(x, y, entities);
-			                		    if (!character) {
-			                		        alreadyAdd = true;
-			                		        insertActor(player1, x, y);
-			                		        entities.push(player1[player1.length-1]);
-			                		    }
-			        		        }
+				    	if (actor.getNombreAction() > 0) {
+				    	    actor.setNombreAction(0);
+			        		if (mov.table) {
+			        		    printMessage('Glou glou glou.', true);
+			        		    var others = [];
+			        		    var addEntityToOther = function (x, y) {
+			        		        var character = lab.entityOn(x, y, entities, player);
+			            		    if (character) {others.push(character)}
 			        		    }
-			    		        execIfIsEmpty(mov.pos.x-1, mov.pos.y);
-			    		        execIfIsEmpty(mov.pos.x, mov.pos.y-1);
-			    		        execIfIsEmpty(mov.pos.x+1, mov.pos.y);
-			    		        execIfIsEmpty(mov.pos.x, mov.pos.y+1);
-			    		    } else {
-			    		        // Fuuuuuusion
-			    		        entities = delTabElement(entities, others[0]);
-			    		        player1 = delTabElement(player1, others[0]);
-			    		        // TODO stats
-			    		    }
-			    		} else {
-				    		printMessage('I KILLED YOU, BITCH !', true);
-						    var other_player = mov;
-						    entities = delTabElement(entities,other_player);
-						    player1 = delTabElement(player1,other_player);
-						    player.setNombreAction(0)
+			        		    addEntityToOther(mov.pos.x-1, mov.pos.y);
+			        		    addEntityToOther(mov.pos.x, mov.pos.y-1);
+			        		    addEntityToOther(mov.pos.x+1, mov.pos.y);
+			        		    addEntityToOther(mov.pos.x, mov.pos.y+1);
+			        		    if (others.length == 0) {
+			        		        // Dédoublement
+			            		    var alreadyAdd = false;
+			            		    var execIfIsEmpty = function (x, y) {
+			            		        if (!alreadyAdd) {
+			            		            var character = lab.entityOn(x, y, entities);
+			                    		    if (!character) {
+			                    		        alreadyAdd = true;
+			                    		        insertActor(player1, x, y);
+			                    		        entities.push(player1[player1.length-1]);
+			                    		    }
+			            		        }
+			            		    }
+			        		        execIfIsEmpty(mov.pos.x-1, mov.pos.y);
+			        		        execIfIsEmpty(mov.pos.x, mov.pos.y-1);
+			        		        execIfIsEmpty(mov.pos.x+1, mov.pos.y);
+			        		        execIfIsEmpty(mov.pos.x, mov.pos.y+1);
+			        		    } else {
+			        		        // Fuuuuuusion
+			        		        entities = delTabElement(entities, others[0]);
+			        		        player1 = delTabElement(player1, others[0]);
+			        		        // TODO stats
+			        		    }
+			        		} else {
+				        		printMessage('I KILLED YOU, BITCH !', true);
+						        var other_player = mov;
+						        entities = delTabElement(entities,other_player);
+						        player1 = delTabElement(player1,other_player);
+						        
+						    }
 						}
 					}
 				}				
