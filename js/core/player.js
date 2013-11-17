@@ -52,10 +52,10 @@ Player.prototype = {
 		return null;
 	},
 
-setNumberAction: function(n) {
-			 for (i=0; i<this.tabActor.length; i++) {
-				 this.tabActor[i].setNombreAction(n);
-			 }
-		 }
-
+	setNumberAction: function(n) {
+		for (i=0; i<this.tabActor.length; i++) {
+			this.tabActor[i].setNombreAction(n);
+			this.tabActor[i].incrPV();
+		}
+	}
 }
