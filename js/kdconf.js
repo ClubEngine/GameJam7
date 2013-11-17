@@ -66,5 +66,24 @@ function initKdConf(action) {
 	kd.Q.down(function() {
 		action.state  = Action.FIRE_L;
 	});
+	
+	
+	
+	
+	kd.W.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.W.down(function() {
+		action.state  = Action.CHANGE_PLAYER_L;
+	});
+	
+	kd.X.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.X.down(function() {
+		action.state  = Action.CHANGE_PLAYER_R;
+	});
 }
 

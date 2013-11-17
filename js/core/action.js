@@ -7,6 +7,8 @@ Action = {
 	FIRE_U:5,
 	FIRE_D:6,
 	FIRE_R:7,
-	FIRE_L:8
+	FIRE_L:8,
+	CHANGE_PLAYER_L:9,
+	CHANGE_PLAYER_R:10
 }
 

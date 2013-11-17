@@ -17,10 +17,14 @@ $(document).ready(function () {
 	var action = function() { this.state = Action.IDLE; };
 	
 
-	var player = new Actor(); player.setSpriteId(1); player.setPosition(1, 0);
+	var player1 = new Actor(); player1.setSpriteId(1); player1.setPosition(1, 0);
+	var player2 = new Actor(); player2.setSpriteId(1); player2.setPosition(9, 2);
+	var player = player1;
 
 	var entities = new Array();
-	entities[0] = player;
+	entities.push(player1);
+	entities.push(player2);
+	//entities[0] = player;
 
 	
 	// spwan monsters
@@ -45,6 +49,10 @@ $(document).ready(function () {
 
 
 	var graphics = new Graphics(startGame);
+	
+	function selectPlayer() {
+	    window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
+	}
 
 	function startGame () {
 		graphics.setLabyrinth(lab);
@@ -58,19 +66,28 @@ $(document).ready(function () {
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
+				
+				if (action.state == Action.CHANGE_PLAYER_L) {
+				    player = player1;
+				    selectPlayer();
+				} else if (action.state == Action.CHANGE_PLAYER_R) {
+				    player = player2;
+				    selectPlayer();
+				}
+				
 				if (!doMovement(player, lab, action.state)) {
 					playPas();
 					window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
 				}
 	
-				if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
+				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
 					ball.setPosition(player.getPosition().x, player.getPosition().y);
 					ball.setSpriteId(SpriteCode.FIRE_BALL);
 					ball.setDirection(action.state);
 					entities.push(ball);
 					playBall();
-				}
+				}*/
 			}
 		}
 
@@ -106,7 +123,7 @@ $(document).ready(function () {
                 }
 
 		// Anim monsters. Move to a neighbour case randomly.
-		if (Date.now() > anim_date + 1000) {		
+		/*if (Date.now() > anim_date + 1000) {		
 			anim_date = Date.now();
 			for (var i in entities) {
 				if (entities[i].getSpriteId() == SpriteCode.MONSTER1) {
@@ -134,7 +151,7 @@ $(document).ready(function () {
 					}
 				}
 			}
-		}		
+		}*/		
 
 		graphics.refreshAll(entities);
 		});	
