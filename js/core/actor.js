@@ -1,13 +1,14 @@
 // Actor
 // Moveable object
 
-var Actor = function () {
+var Actor = function (isTable) {
 	this.pos = new Vector(0,0);
 	this.spriteId = 0;
 	this.dir = Action.DOWN;
 	this.nombreAction = 1;
 	this.PV = 1 ;
 	this.Attack = 1 ;
+	this.table = isTable;
 }
 
 Actor.prototype = {
