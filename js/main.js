@@ -56,9 +56,11 @@ $(document).ready(function () {
 	
 	for(var nb=0;nb < 10;++nb) {
 		var id = Math.floor(Math.random()*freeCases.length % freeCases.length);
-		var monster = new Actor();
+		var monster = new Actor(false,true);
 		monster.setSpriteId(11);
 		monster.setPosition(freeCases[id][0], freeCases[id][1]);
+		monster.setPV(80);
+		monster.setAttack(20);
 		entities.push(monster);
 		freeCases = delTabElement(freeCases, freeCases[id]);
 	}
@@ -114,6 +116,32 @@ $(document).ready(function () {
 						// mov est l'entitée attaquée
 						if (actor.getNombreAction() > 0) {
 							actor.setNombreAction(0);
+							if (mov.monster) {
+								printMessage('Un Monstre sauvage apparait !',true);
+								var other_actor = mov;
+								while ( actor.PV > 0 && other_actor.PV > 0 ) {
+									other_actor.setPV( other_actor.PV - actor.Attack) ;
+									if ( other_actor.PV <= 0) {
+										break ;
+									}
+									actor.setPV(actor.PV -other_actor.Attack);
+								}
+								if ( other_actor.PV <=0) {
+								pos_new_mob = other_actor.pos ;
+								entities = delTabElement(entities,other_actor);
+								insertActor(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y)
+								}
+																	
+									
+								
+								if ( actor.PV <=0) {
+								entities = delTabElement(entities,actor);
+								}
+								}									
+									
+									
+								
+
 							if (mov.table) {
 								printMessage('Glou glou glou.', true);
 								var others = [];
@@ -393,7 +421,7 @@ function insertActor(player, entities, x, y) {
 	}
 }
 function createTable(x, y, entities) {
-	var table = new Actor(true);
+	var table = new Actor(true,false);
 	table.setSpriteId(99);
 	table.setPosition(x,y);
 	entities.push(table);

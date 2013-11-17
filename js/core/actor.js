@@ -1,7 +1,7 @@
 // Actor
 // Moveable object
 
-var Actor = function (isTable) {
+var Actor = function (isTable,ismonster) {
 	this.pos = new Vector(0,0);
 	this.spriteId = 0;
 	this.dir = Action.DOWN;
@@ -9,6 +9,7 @@ var Actor = function (isTable) {
 	this.PV = 1 ;
 	this.Attack = 1 ;
 	this.table = isTable;
+	this.monster = ismonster;
 }
 
 Actor.prototype = {
