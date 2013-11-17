@@ -84,6 +84,11 @@ $(document).ready(function () {
 				} else {
 				    // mov est l'entitée attaquée
 				    console.log('BOOOOOOM !');
+					var other_player = mov;
+					entities = delTabElement(entities,other_player);
+
+					
+
 				}
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
