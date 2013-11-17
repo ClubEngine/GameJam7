@@ -2,7 +2,7 @@ var print_id = 0;
 function printMessage (msg, good) {
     var $msg = $('#message');
     console.log($msg, msg, good)
-    $msg.text(msg);
+    $msg.html(msg);
     if (good == undefined) {
         $msg.removeClass("bad");
         $msg.removeClass("good");
@@ -26,7 +26,7 @@ function printMessage (msg, good) {
 function printCarac(msg) {
     var $carac = $('#carac');
     $carac.addClass('up');
-    $carac.text(msg);
+    $carac.html(msg);
 }
 function eraseCarac() {
     var $carac = $('#carac');

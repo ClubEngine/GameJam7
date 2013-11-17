@@ -42,6 +42,10 @@ Actor.prototype = {
 	},
 
 	getNombreAction: function (n) {
-		return nombreAction;
-	}
+		return this.nombreAction;
+	},
+	
+	printCarac: function () {
+	    printCarac("Actions restantes : "+this.nombreAction);
+	},
 }

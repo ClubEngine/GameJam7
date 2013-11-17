@@ -40,7 +40,7 @@ var Screen = function(callback) {
 	'wall': 'assets/stone_brick12.png',
 	'floor': 'assets/crystal_floor3.png',
 	'arena': 'assets/rough_red0.png',
-        'table': 'assets/cestpourtoibenjamin.png'
+       'table': 'assets/cestpourtoibenjamin.png'
 
     }
 
@@ -91,17 +91,19 @@ Screen.prototype = {
 	},
     drawTable: function(x, y) {
 	this.context.drawImage(this.sprites['table'], x, y);
+        
     },
 	drawCursor: function(x, y) {
-	this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-1);
-        
-    }
-}    
-var MapGraphic = function (labyrinth) {
-	this.labyrinth = labyrinth
-}
+		this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-1);        
+    	}
 
-    MapGraphic.prototype = {
+   
+} 
+    var MapGraphic = function (labyrinth) {
+	this.labyrinth = labyrinth;
+    }
+
+MapGraphic.prototype = {
 	print: function (origin_x, origin_y, visionScope) {
 	    // Parcours de la matrice et affichage d'un 
 	    // carré de couleur différente pour chaque nombre
