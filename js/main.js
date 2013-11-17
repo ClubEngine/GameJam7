@@ -70,8 +70,7 @@ $(document).ready(function () {
 			kd.tick();
 
 		// prevent player to move super quickly	
-		if (action.state != Action.IDLE) {	
-		    console.log(action.state);
+		if (action.state != Action.IDLE) {
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
