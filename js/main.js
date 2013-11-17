@@ -14,7 +14,8 @@ $(document).ready(function () {
 	var push_date = Date.now();
 	var ball_date = Date.now();
 	var anim_date = Date.now();
-	var action = function() { this.state = Action.IDLE; };
+	var action = {};
+	action.state = Action.IDLE;
 	
 
 	var player1 = new Array
@@ -70,6 +71,7 @@ $(document).ready(function () {
 
 		// prevent player to move super quickly	
 		if (action.state != Action.IDLE) {	
+		    console.log(action.state);
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
