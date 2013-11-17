@@ -35,6 +35,7 @@ $(document).ready(function () {
 	}*/
 
 	
+	createTable(2 , 8, entities);
 	// spawn monsters
 	var freeCases = new Array();
 	for(var x=0 ; x<lab.getWidth() ; ++x) {
@@ -297,6 +298,15 @@ function insertActor(tabPlayer, x, y) {
 
 	insertActor.id++;
 }
+function createTable(x, y, entities) {
+	var table = new Actor();
+	table.setSpriteId(99);
+	table.setPosition(x,y);
+	entities.push(table);
+}
+	
+	
+
 
 // set le nombre de coup de tous les actor d'un tableau
 function setNumberAction(tabPlayer, n) {
