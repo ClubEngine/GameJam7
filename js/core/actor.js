@@ -42,6 +42,6 @@ Actor.prototype = {
 	},
 
 	getNombreAction: function (n) {
-		return nombreAction;
+		return this.nombreAction;
 	}
 }

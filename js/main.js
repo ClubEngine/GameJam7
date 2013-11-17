@@ -24,6 +24,7 @@ $(document).ready(function () {
 	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
 	var player = player1[0];
 	var indexPlayer = 0;
+	alert(player.getNombreAction())
 
 	var entities = new Array();
 	entities.push(player1[0]);
@@ -75,13 +76,13 @@ $(document).ready(function () {
 				if (action.state == Action.CHANGE_PLAYER_L) {
 				    if (indexPlayer > 0){
 				    	player = player1[indexPlayer-1];
-						indexPlayer--;
+					indexPlayer--;
 				    	focusPlayer();
 					}
 				} else if (action.state == Action.CHANGE_PLAYER_R) {
 				    if (indexPlayer < player1.length-1){
 				    	player = player1[indexPlayer+1];
-						indexPlayer++;
+					indexPlayer++;
 				    	focusPlayer();
 					}
 				}
@@ -97,6 +98,7 @@ $(document).ready(function () {
 				    printMessage('I KILLED YOU, BITCH !', true);
 					var other_player = mov;
 					entities = delTabElement(entities,other_player);
+					player.setNumberAction(0);
 
 					
 
@@ -289,7 +291,6 @@ function insertActor(tabPlayer, x, y) {
 	tabPlayer[tabPlayer.length-1].setPosition(x, y);
 
 	insertActor.id++;
-	alert(insertActor.id);
 }
 
 // set le nombre de coup de tous les actor d'un tableau
