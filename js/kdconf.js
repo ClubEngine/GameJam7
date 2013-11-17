@@ -92,12 +92,12 @@ function initKdConf(action) {
 	kd.X.down(function() {
 		action.state  = Action.CHANGE_PLAYER_R;
 	});
-        kd.ENTER.up(function() {
-	    action.state = Action.Idle;
-        });
+    kd.ENTER.up(function() {
+        action.state = Action.IDLE;
+    });
 
-        kd.ENTER.down(function() {
-            action.state = Action.END_TURN;
-        });
+    kd.ENTER.down(function() {
+        action.state = Action.END_TURN;
+    });
 }
 
