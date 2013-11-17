@@ -24,7 +24,6 @@ $(document).ready(function () {
 	//var player2 = new array(new Actor()); player2[0].setSpriteId(2); player2[0].setPosition(9, 2);
 	var player = player1[0];
 	var indexPlayer = 0;
-	alert(player.getNombreAction())
 
 	var entities = new Array();
 	entities.push(player1[0]);
@@ -103,6 +102,8 @@ $(document).ready(function () {
 					
 
 				}
+				
+				player.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
