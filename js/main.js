@@ -46,6 +46,8 @@ $(document).ready(function () {
 
 	
 	createTable(2 , 8, entities);
+	createTable(11 , 28, entities);
+	createTable(19 , 22, entities);
 	// spawn monsters
 	var freeCases = new Array();
 	for(var x=0 ; x<lab.getWidth() ; ++x) {
@@ -145,7 +147,7 @@ $(document).ready(function () {
 									
 								
 
-							if (mov.table) {
+							else if (mov.table) {
 								printMessage('Glou glou glou.', true);
 								var others = [];
 								var addEntityToOther = function (x, y) {
