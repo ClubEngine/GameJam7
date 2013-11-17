@@ -38,7 +38,9 @@ Player.prototype = {
 		if (this.tabActor.length > 0) {
 			if (this.indexActor < this.tabActor.length -1) {
 				this.indexActor++;
-			}	
+			} else {
+			    this.indexActor = 0;
+			}
 			return this.tabActor[this.indexActor];	
 		}
 		return null;
@@ -49,7 +51,9 @@ Player.prototype = {
 		if (this.tabActor.length > 0) {
 			if (this.indexActor > 0) {
 				this.indexActor--;
-			}	
+			} else {
+			    this.indexActor = this.tabActor.length-1;
+			}
 			return this.tabActor[this.indexActor];	
 		}
 		return null;
@@ -58,6 +62,7 @@ Player.prototype = {
 	setNumberAction: function(n) {
 		for (i=0; i<this.tabActor.length; i++) {
 			this.tabActor[i].setNombreAction(n);
+			this.tabActor[i].incrPV();
 		}
 	}
 
