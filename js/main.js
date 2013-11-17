@@ -151,6 +151,14 @@ $(document).ready(function () {
 							} else {
 								printMessage('I KILLED YOU, BITCH !', true);
 								var other_actor = mov;
+								while ( actor.PV > 0 && other_actor.PV > 0 ) {
+									other_actor.setPV( other_actor.PV - actor.Attack) ;
+									if ( other_actor.PV <= 0) {
+										break ;
+									}
+									actor.setPV(actor.PV -other_actor.Attack);
+								}
+								if ( other_actor.PV <=0) {
 								entities = delTabElement(entities,other_actor);
 								for (i in players) {
 									players[i].setActors(delTabElement(players[i].actors(), other_actor));
@@ -158,9 +166,23 @@ $(document).ready(function () {
 										players[i].setCurrentActor(actor);
 									}else{
 										players[i].previousActor();
-									}									
+									}
+								}									
 									
 								}
+								if ( actor.PV <=0) {
+								entities = delTabElement(entities,actor);
+								for (i in players) {
+									players[i].setActors(delTabElement(players[i].actors(), actor));
+									if (i == indexPlayer){
+										players[i].setCurrentActor(other_actor);
+									}else{
+										players[i].previousActor();
+									}
+								}									
+									
+								}
+
 							}
 						}
 					}				
