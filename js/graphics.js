@@ -93,7 +93,7 @@ Screen.prototype = {
 }
   
 var MapGraphic = function (labyrinth) {
-	this.labyrinth = labyrinth
+	this.labyrinth = labyrinth;
 }
 
 MapGraphic.prototype = {

@@ -56,6 +56,7 @@ $(document).ready(function () {
 
 	function startGame () {
 		graphics.setLabyrinth(lab);
+		focusPlayer();
 
 		initKdConf(action);	
 		kd.run(function () {
