@@ -130,6 +130,7 @@ $(document).ready(function () {
 								pos_new_mob = other_actor.pos ;
 								entities = delTabElement(entities,other_actor);
 								insertActor(players[indexPlayer],entities,pos_new_mob.x,pos_new_mob.y, 100,100,randomMunster())
+								printMessage('Un monstre rejoint votre camp');
 								}
 																	
 									
