@@ -34,11 +34,12 @@ var Screen = function(callback) {
 
 	// Elements
 	'fire': 'assets/conjure_ball_lightning.png',
+	'cursor': 'assets/unseen_weapon.png',
 
 	// Labyrinthurtoi
 	'wall': 'assets/stone_brick12.png',
 	'floor': 'assets/crystal_floor3.png',
-	'arena': 'assets/rough_red0.png'
+	'arena': 'assets/rough_red0.png',
         'table': 'assets/cestpourtoibenjamin.png'
 
     }
@@ -90,13 +91,16 @@ Screen.prototype = {
     },
     drawTable: function(x, y) {
 	this.context.drawImage(this.sprites['table'], x, y);
+    },
+	drawCursor: function(x, y) {
+	this.playersMapCxt.drawImage(this.sprites['cursor'], x, y-1);
         
     }
-    
+}    
     var MapGraphic = function (labyrinth) {
 	this.labyrinth = labyrinth
     }
-}
+
     MapGraphic.prototype = {
 	print: function (origin_x, origin_y, visionScope) {
 	    // Parcours de la matrice et affichage d'un 
@@ -145,7 +149,7 @@ Screen.prototype = {
 	    this.mapGraphic.print(0, 0, 1024);
 	},
 	
-	refreshAll: function(entities) {
+	refreshAll: function(entities,player) {
 	    screen.playersMapCxt.clearRect(0, 0, 736, 1024);
 
 	    for (var i in entities) {
@@ -163,6 +167,9 @@ Screen.prototype = {
 		    screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
 		} else if (spriteId == SpriteCode.FIRE_BALL) {
 		    screen.drawFire(32*pos.x, 32*pos.y);
+		}
+		if (entity == player) {
+			screen.drawCursor(32*pos.x,32*pos.y -32)
 		}
 
 	    }
