@@ -100,7 +100,7 @@ $(document).ready(function () {
 				    		printMessage('I KILLED YOU, BITCH !', true);
 						var other_player = mov;
 						entities = delTabElement(entities,other_player);
-						player.setNumberAction(0);
+						player.setNombreAction(0);
 					}
 				}				
 
