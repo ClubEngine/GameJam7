@@ -38,7 +38,7 @@ var Screen = function(callback) {
 	// Labyrinthurtoi
 	'wall': 'assets/stone_brick12.png',
 	'floor': 'assets/crystal_floor3.png',
-	'arena': 'assets/rough_red0.png'
+	'arena': 'assets/rough_red0.png',
         'table': 'assets/cestpourtoibenjamin.png'
 
     }
@@ -92,11 +92,12 @@ Screen.prototype = {
 	this.context.drawImage(this.sprites['table'], x, y);
         
     }
-    
+   
+} 
     var MapGraphic = function (labyrinth) {
-	this.labyrinth = labyrinth
+	this.labyrinth = labyrinth;
     }
-}
+
     MapGraphic.prototype = {
 	print: function (origin_x, origin_y, visionScope) {
 	    // Parcours de la matrice et affichage d'un 
