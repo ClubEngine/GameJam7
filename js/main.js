@@ -27,9 +27,12 @@ $(document).ready(function () {
 	var indexPlayer = 0;
 
 	var entities = new Array();
-	entities.push(player1[0]);
-	entities.push(player1[1]);
-	//entities[0] = player;
+	for (var i in player1) {
+	    entities.push(player1[i]);
+	}
+	/*for (var i in player2) {
+	    entities.push(player2[i]);
+	}*/
 
 	
 	// spawn monsters
@@ -66,6 +69,7 @@ $(document).ready(function () {
 		initKdConf(action);	
 		kd.run(function () {
 			kd.tick();
+			player.printCarac();
 
 		// prevent player to move super quickly	
 		if (action.state != Action.IDLE) {
