@@ -17,26 +17,21 @@ $(document).ready(function () {
 	var action = {};
 	action.state = Action.IDLE;
 	
+	var entities = new Array();
+	
 	// tableau de joueur
 	var players = new Array;
 	var indexPlayer = 0;
 
 	// player 1
 	var player1 = new Player();
-	insertActor(player1,1, 0);
-	insertActor(player1, 9, 2);
+	insertActor(player1, entities, 1, 0);
+	insertActor(player1, entities, 9, 2);
 	player1.setNumberAction(20);
 
 	// acteur selectionne
 	var actor = player1.currentActor();
 
-	var entities = new Array();
-	for (var i in player1.actors()) {
-	    entities.push(player1.actors()[i]);
-	}
-	/*for (var i in player2) {
-	    entities.push(player2[i]);
-	}*/
 
 	
 	createTable(2 , 8, entities);
@@ -75,6 +70,7 @@ $(document).ready(function () {
 		kd.run(function () {
 			kd.tick();
 			actor.printCarac();
+			focusPlayer();
 
 		// prevent  actor to move super quickly	
 		if (action.state != Action.IDLE) {
@@ -101,10 +97,46 @@ $(document).ready(function () {
 				    	printMessage('Aïe.', false);
 					} else {
 				    		// mov est l'entitée attaquée
+			    		if (mov.table) {
+			    		    printMessage('Glou glou glou.', true);
+			    		    var others = [];
+			    		    var addEntityToOther = function (x, y) {
+			    		        var character = lab.entityOn(x, y, entities, actor);
+			        		    if (character) {others.push(character)}
+			    		    }
+			    		    addEntityToOther(mov.pos.x-1, mov.pos.y);
+			    		    addEntityToOther(mov.pos.x, mov.pos.y-1);
+			    		    addEntityToOther(mov.pos.x+1, mov.pos.y);
+			    		    addEntityToOther(mov.pos.x, mov.pos.y+1);
+			    		    if (others.length == 0) {
+			    		        // Dédoublement
+			        		    var alreadyAdd = false;
+			        		    var execIfIsEmpty = function (x, y) {
+			        		        if (!alreadyAdd) {
+			        		            var character = lab.entityOn(x, y, entities);
+			                		    if (!character) {
+			                		        alreadyAdd = true;
+			                		        insertActor(player1, entities, x, y);
+			                		    }
+			        		        }
+			        		    }
+			    		        execIfIsEmpty(mov.pos.x-1, mov.pos.y);
+			    		        execIfIsEmpty(mov.pos.x, mov.pos.y-1);
+			    		        execIfIsEmpty(mov.pos.x+1, mov.pos.y);
+			    		        execIfIsEmpty(mov.pos.x, mov.pos.y+1);
+			    		    } else {
+			    		        // Fuuuuuusion
+			    		        entities = delTabElement(entities, others[0]);
+			    		        //player1 = delTabElement(player1, others[0]);
+			    		        // TODO stats
+			    		    }
+			    		} else {
 				    		printMessage('I KILLED YOU, BITCH !', true);
 						var other_actor = mov;
 						entities = delTabElement(entities,other_actor);
 						actor.setNombreAction(0);
+						//player1 = delTabElement(player1,other_player);
+						}
 					}
 				}				
 
@@ -286,21 +318,26 @@ function playRNo()
 
 
 // insert un actor dans le tableau avec sprite et tout le bordel
-function insertActor(player, x, y) {
+function insertActor(player, entities, x, y) {
 	// variable static
 	if ( typeof insertActor.id == 'undefined' ) {
         insertActor.id = 1;
     }
 
 	actor = new Actor();
-	player.setActor(actor);
+	player.addActor(actor);
 	actor.setSpriteId(insertActor.id);
 	actor.setPosition(x, y);
 
+	entities.push(actor);
+	
 	insertActor.id++;
+	if (insertActor.id > 2) {
+	    insertActor.id = 1;
+	}
 }
 function createTable(x, y, entities) {
-	var table = new Actor();
+	var table = new Actor(true);
 	table.setSpriteId(99);
 	table.setPosition(x,y);
 	entities.push(table);

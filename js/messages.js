@@ -1,7 +1,6 @@
 var print_id = 0;
 function printMessage (msg, good) {
     var $msg = $('#message');
-    console.log($msg, msg, good)
     $msg.html(msg);
     if (good == undefined) {
         $msg.removeClass("bad");
@@ -14,7 +13,6 @@ function printMessage (msg, good) {
         $msg.addClass("bad");
     }
     $msg.addClass("up");
-    console.log($msg.attr('id'));
     print_id++;
     var current_print_id = print_id;
     setTimeout(function () {

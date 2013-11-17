@@ -9,8 +9,8 @@ Player.prototype = {
 		return this.tabActor;
 	},
 
-	setActor: function (a) {
-		this.tabActor[this.tabActor.length]=a;
+	addActor: function (a) {
+		this.tabActor.push(a);
 	},
 	
 	currentActor: function() {
