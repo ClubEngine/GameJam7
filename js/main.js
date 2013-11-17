@@ -25,14 +25,14 @@ $(document).ready(function () {
 
 	// player 1
 	var player1 = new Player();
-	insertActor(player1, entities, 1, 0);
-	insertActor(player1, entities, 9, 2);
+	insertActor(player1, entities, 1, 0, 300, 100);
+	insertActor(player1, entities, 9, 2, 500 , 200);
 	player1.setNumberAction(20);
 
 	// player 2
 	var player2 = new Player();
-	insertActor(player2, entities, 1, 25);
-	insertActor(player2, entities, 5, 25);
+	insertActor(player2, entities, 1, 25, 300, 100);
+	insertActor(player2, entities, 5, 25, 500, 200);
 	player2.setNumberAction(20);
 
 	players[0]=player1;
@@ -161,7 +161,8 @@ $(document).ready(function () {
 											var character = lab.entityOn(x, y, entities);
 											if (!character) {
 												alreadyAdd = true;
-												insertActor(players[indexPlayer], entities, x, y);
+												insertActor(players[indexPlayer], entities, x, y, actor.getPV()/2, actor.getAttack());
+												actor.setPV(actor.getPV()/2);
 											}
 										}
 									}
@@ -175,6 +176,7 @@ $(document).ready(function () {
 									players[indexPlayer].setActors(delTabElement(players[indexPlayer].actors(), others[0]));
 									players[indexPlayer].setCurrentActor(actor);
 									// TODO stats
+									
 								}
 							} else {
 								printMessage('I KILLED YOU, BITCH !', true);
@@ -400,7 +402,7 @@ function playRNo()
 
 
 // insert un actor dans le tableau avec sprite et tout le bordel
-function insertActor(player, entities, x, y) {
+function insertActor(player, entities, x, y, pv, attack) {
 	// variable static
 	if ( typeof insertActor.id == 'undefined' ) {
 		insertActor.id = 1;
@@ -410,8 +412,8 @@ function insertActor(player, entities, x, y) {
 	player.addActor(actor);
 	actor.setSpriteId(insertActor.id);
 	actor.setPosition(x, y);
-	actor.setPV(35+insertActor.id*100);
-	actor.setAttack(10+insertActor.id*100);
+	actor.setPV(pv);
+	actor.setAttack(attack);
 
 	entities.push(actor);
 

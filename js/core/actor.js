@@ -53,7 +53,7 @@ Actor.prototype = {
 		this.PV = n;
 	},
 
-	getPV: function (n) {
+	getPV: function () {
 		return this.PV;
 	},
 	setAttack: function (n) {
@@ -66,7 +66,7 @@ Actor.prototype = {
 	    }
 	},
 
-	getAttack: function (n) {
+	getAttack: function () {
 		return this.Attack;
 	},
 	
