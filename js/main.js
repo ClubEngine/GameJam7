@@ -152,9 +152,9 @@ $(document).ready(function () {
 								players[indexPlayer].setCurrentActor(actor);
 							}
 						}
-					}
-				}				
+					}				
 
+				}
 				actor.printCarac();
 
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
@@ -343,6 +343,8 @@ function insertActor(player, entities, x, y) {
 	player.addActor(actor);
 	actor.setSpriteId(insertActor.id);
 	actor.setPosition(x, y);
+	actor.setPV(35+insertActor*100);
+	actor.setAttack(10+insertActor*100);
 
 	entities.push(actor);
 
