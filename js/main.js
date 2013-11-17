@@ -88,23 +88,22 @@ $(document).ready(function () {
 					}
 				}
 				
-				var mov = doMovement(player, lab, action.state, entities);
-				if (mov == 0) {
-					//playPas();
-					focusPlayer();
-				} else if (mov == 1) {
-				    printMessage('Aïe.', false);
-				} else {
-				    // mov est l'entitée attaquée
-				    printMessage('I KILLED YOU, BITCH !', true);
-					var other_player = mov;
-					entities = delTabElement(entities,other_player);
-					player.setNumberAction(0);
+				else {
+					var mov = doMovement(player, lab, action.state, entities);
+					if (mov == 0) {
+						//playPas();
+						focusPlayer();
+					} else if (mov == 1) {
+				    	printMessage('Aïe.', false);
+					} else {
+				    		// mov est l'entitée attaquée
+				    		printMessage('I KILLED YOU, BITCH !', true);
+						var other_player = mov;
+						entities = delTabElement(entities,other_player);
+						player.setNumberAction(0);
+					}
+				}				
 
-					
-
-				}
-				
 				player.printCarac();
 	
 				/*if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
