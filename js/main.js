@@ -31,7 +31,7 @@ $(document).ready(function () {
 	entities.push(player1[1]);
 	//entities[0] = player;
 	
-	createTable(4 , 8, entities);
+	createTable(2 , 8, entities);
 	// spawn monsters
 	var freeCases = new Array();
 	for(var x=0 ; x<lab.getWidth() ; ++x) {
@@ -296,9 +296,9 @@ function insertActor(tabPlayer, x, y) {
 }
 function createTable(x, y, entities) {
 	var table = new Actor();
-	table.setSpriteId(3);
+	table.setSpriteId(99);
 	table.setPosition(x,y);
-	entities.push = table;
+	entities.push(table);
 }
 	
 	
