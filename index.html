@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+
+		<script src="libs/jquery.min.js"></script>
+		<script src="libs/keydrown.min.js"></script>
+		<script src="libs/soundjs.min.js"></script>
+		<script src="socket.io/socket.io.js"></script>
+
+		<script src="js/tools.js"></script>
+
+		<script src="js/core/Case.js"></script>
+		<script src="js/core/Labyrinth.js"></script>
+		<script src="js/core/LabyrinthFactory.js"></script>
+		<script src="js/core/Movement.js"></script>
+		<script src="js/core/Actor.js"></script>
+		<script src="js/core/Vector.js"></script>
+		<script src="js/core/Action.js"></script>
+		<script src="js/core/Sprite.js"></script>
+
+		<script src="js/kdconf.js"></script>
+		<script src="js/graphics.js"></script>
+		<script src="js/SoundManager.js"></script>
+		<script src="js/Labyrintic.js"></script>
+		<script src="js/gui/MainMenu.js"></script>
+		<script src="js/main.js"></script>
+
+		<script src="js/Network.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+
+		<title>Labyrintic - Club Engine - GameJam #6</title>
+	</head>
+
+	<body>
+
+		<section id="main-menu">
+			<header>
+				<h1>Labyrintic</h1>
+			</header>
+
+			<menu id="map-menu">
+				<li data-map="mapTropBien.txt">Map Trop Bien</li>
+				<li data-map="smallArena.txt">Small Arena</li>
+				<li data-map="bigArena.txt">Big Arena</li>
+			</menu>
+
+			<menu id="player-menu">
+				<li data-pid="0">Jean Paul</li>
+				<li data-pid="1">Jean Pierre</li>
+				<li data-pid="2">Jean Pale</li>
+				<li data-pid="3">Jean Jean</li>
+			</menu>
+
+			<button id="start-game">Start Game</button>
+
+			<footer>Club Engine - 2013 - GameJam #6</footer>
+		</section>
+
+		<section id="game">
+			<canvas id="map" width="736" height="1024">
+				Mets à jour ton navigateur gentil utilisateur !
+			</canvas>
+			<canvas id="playersMap" width="736" height="1024">
+				Mets à jour ton navigateur gentil utilisateur !
+			</canvas>
+		</section>
+	</body>
+</html>
